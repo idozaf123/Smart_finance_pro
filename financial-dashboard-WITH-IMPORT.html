@@ -1859,8 +1859,8 @@
         let pendingDeleteId = null;
         
         // Sortable instances
-        let incomeSortable = null;
-        let expenseSortable = null;
+        let incomeSortables = [];
+        let expenseSortables = [];
 
         /* ==========================================
            CATEGORY MANAGEMENT FUNCTIONS
@@ -2498,32 +2498,39 @@
            DRAG & DROP FUNCTIONALITY
         ========================================== */
         
+        function destroySortables(instances) {
+            instances.forEach(instance => instance.destroy());
+            instances.length = 0;
+        }
+
         function initializeDragAndDrop() {
-            const incomeList = document.getElementById('incomeList');
-            if (incomeList && incomeList.children.length > 0) {
-                if (incomeSortable) {
-                    incomeSortable.destroy();
-                }
-                
-                incomeSortable = new Sortable(incomeList, {
-                    animation: 150,
-                    handle: '.drag-handle',
-                    ghostClass: 'sortable-ghost',
-                    chosenClass: 'sortable-chosen'
+            const incomeContents = document.querySelectorAll('#incomeList .transaction-category-content');
+            if (incomeContents.length > 0) {
+                destroySortables(incomeSortables);
+
+                incomeContents.forEach(content => {
+                    const sortable = new Sortable(content, {
+                        animation: 150,
+                        handle: '.drag-handle',
+                        ghostClass: 'sortable-ghost',
+                        chosenClass: 'sortable-chosen'
+                    });
+                    incomeSortables.push(sortable);
                 });
             }
-            
-            const expenseList = document.getElementById('expenseList');
-            if (expenseList && expenseList.children.length > 0) {
-                if (expenseSortable) {
-                    expenseSortable.destroy();
-                }
-                
-                expenseSortable = new Sortable(expenseList, {
-                    animation: 150,
-                    handle: '.drag-handle',
-                    ghostClass: 'sortable-ghost',
-                    chosenClass: 'sortable-chosen'
+
+            const expenseContents = document.querySelectorAll('#expenseList .transaction-category-content');
+            if (expenseContents.length > 0) {
+                destroySortables(expenseSortables);
+
+                expenseContents.forEach(content => {
+                    const sortable = new Sortable(content, {
+                        animation: 150,
+                        handle: '.drag-handle',
+                        ghostClass: 'sortable-ghost',
+                        chosenClass: 'sortable-chosen'
+                    });
+                    expenseSortables.push(sortable);
                 });
             }
         }
