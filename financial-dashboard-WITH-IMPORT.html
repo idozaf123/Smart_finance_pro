@@ -317,6 +317,79 @@
             align-items: center;
             justify-content: center;
             padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+        }
+
+        /* Glassmorphism for login forms */
+        #loginForm, #registerForm {
+            backdrop-filter: blur(10px) saturate(180%);
+        }
+
+        .login-glass-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-input {
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            color: #1a1a1a;
+            font-weight: 500;
+        }
+
+        .login-input::placeholder {
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .login-input:focus {
+            background: rgba(255, 255, 255, 0.35);
+            border-color: rgba(255, 255, 255, 0.5);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+        }
+
+        .login-button-primary {
+            background: rgba(59, 130, 246, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+        }
+
+        .login-button-primary:hover {
+            background: rgba(59, 130, 246, 0.9);
+        }
+
+        .login-button-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .login-button-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .login-label {
+            color: #1a1a1a;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+        }
+
+        .login-title {
+            color: #1a1a1a;
+            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
+        }
+
+        .login-subtitle {
+            color: rgba(0, 0, 0, 0.7);
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
         }
         
         .user-badge {
@@ -375,96 +448,87 @@
 </head>
 <body class="min-h-screen">
     <!-- Login Screen -->
-    <div id="loginScreen" class="login-container" style="background: var(--bg-primary); display: none;">
-        <div class="w-full max-w-md p-8 rounded-2xl fade-in" style="background: var(--bg-secondary); box-shadow: var(--shadow-lg);">
+    <div id="loginScreen" class="login-container" style="display: none;">
+        <div class="w-full max-w-md p-8 login-glass-card fade-in">
             <div class="text-center mb-8">
                 <div class="w-16 h-16 mx-auto mb-4 rounded-xl gradient-savings flex items-center justify-center text-white text-3xl">
                     💰
                 </div>
-                <h1 class="text-2xl font-bold mb-2">לוח מחוונים פיננסי מאובטח</h1>
-                <p class="text-sm" style="color: var(--text-secondary);">כניסה למערכת</p>
+                <h1 class="text-2xl font-bold mb-2 login-title">לוח מחוונים פיננסי מאובטח</h1>
+                <p class="text-sm login-subtitle">כניסה למערכת</p>
             </div>
             
             <!-- Login Form -->
             <div id="loginForm" class="space-y-4">
                 <div>
-                    <label class="block mb-2 font-medium">שם משתמש</label>
+                    <label class="block mb-2 font-medium login-label">שם משתמש</label>
                     <input type="text" id="loginUsername" required autocomplete="username"
-                           class="w-full px-4 py-3 rounded-lg border outline-none focus:ring-2 transition"
-                           style="background: var(--bg-primary); border-color: var(--border-color); color: var(--text-primary);"
+                           class="w-full px-4 py-3 login-input transition"
                            placeholder="הזן שם משתמש">
                 </div>
-                
+
                 <div>
-                    <label class="block mb-2 font-medium">סיסמה</label>
+                    <label class="block mb-2 font-medium login-label">סיסמה</label>
                     <input type="password" id="loginPassword" required autocomplete="current-password"
-                           class="w-full px-4 py-3 rounded-lg border outline-none focus:ring-2 transition"
-                           style="background: var(--bg-primary); border-color: var(--border-color); color: var(--text-primary);"
+                           class="w-full px-4 py-3 login-input transition"
                            placeholder="הזן סיסמה">
                 </div>
-                
+
                 <!-- Remember Me Checkbox -->
                 <div style="margin-top: 1rem;">
-                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;" class="login-label">
                         <input type="checkbox" id="rememberMe" style="width: auto;">
                         <span style="font-size: 0.9rem;">זכור אותי במחשב זה</span>
                     </label>
-                    <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">
+                    <p style="font-size: 0.75rem; margin-top: 0.25rem;" class="login-subtitle">
                         ⚠️ השתמש רק במחשב אישי מאובטח
                     </p>
                 </div>
-                
+
                 <div id="loginError" class="text-red-600 text-sm hidden p-3 rounded-lg" style="background: #fee2e2;">
                     <span id="loginErrorMessage"></span>
                 </div>
-                
-                <button onclick="handleLogin()" class="w-full py-3 rounded-lg text-white font-medium transition hover:opacity-90" 
-                        style="background: var(--savings-color);">🔐 כניסה</button>
-                
-                <button onclick="showRegister()" class="w-full py-3 rounded-lg font-medium transition hover:opacity-90" 
-                        style="background: var(--bg-tertiary); color: var(--text-primary);">➕ צור משתמש חדש</button>
+
+                <button onclick="handleLogin()" class="w-full py-3 text-white font-medium transition login-button-primary">🔐 כניסה</button>
+
+                <button onclick="showRegister()" class="w-full py-3 font-medium transition login-button-secondary">➕ צור משתמש חדש</button>
             </div>
             
             <!-- Register Form -->
             <div id="registerForm" class="space-y-4 hidden">
                 <div>
-                    <label class="block mb-2 font-medium">שם משתמש חדש</label>
+                    <label class="block mb-2 font-medium login-label">שם משתמש חדש</label>
                     <input type="text" id="registerUsername" required autocomplete="username"
-                           class="w-full px-4 py-3 rounded-lg border outline-none focus:ring-2 transition"
-                           style="background: var(--bg-primary); border-color: var(--border-color); color: var(--text-primary);"
+                           class="w-full px-4 py-3 login-input transition"
                            placeholder="בחר שם משתמש ייחודי">
                 </div>
-                
+
                 <div>
-                    <label class="block mb-2 font-medium">סיסמה</label>
+                    <label class="block mb-2 font-medium login-label">סיסמה</label>
                     <input type="password" id="registerPassword" required autocomplete="new-password"
-                           class="w-full px-4 py-3 rounded-lg border outline-none focus:ring-2 transition"
-                           style="background: var(--bg-primary); border-color: var(--border-color); color: var(--text-primary);"
+                           class="w-full px-4 py-3 login-input transition"
                            placeholder="לפחות 6 תווים">
-                    <p class="text-xs mt-1" style="color: var(--text-secondary);">השתמש בסיסמה חזקה - אין אפשרות לשחזר סיסמה שאבדה!</p>
+                    <p class="text-xs mt-1 login-subtitle">השתמש בסיסמה חזקה - אין אפשרות לשחזר סיסמה שאבדה!</p>
                 </div>
-                
+
                 <div>
-                    <label class="block mb-2 font-medium">אימות סיסמה</label>
+                    <label class="block mb-2 font-medium login-label">אימות סיסמה</label>
                     <input type="password" id="registerPasswordConfirm" required autocomplete="new-password"
-                           class="w-full px-4 py-3 rounded-lg border outline-none focus:ring-2 transition"
-                           style="background: var(--bg-primary); border-color: var(--border-color); color: var(--text-primary);"
+                           class="w-full px-4 py-3 login-input transition"
                            placeholder="הזן את הסיסמה שוב">
                 </div>
-                
+
                 <div id="registerError" class="text-red-600 text-sm hidden p-3 rounded-lg" style="background: #fee2e2;">
                     <span id="registerErrorMessage"></span>
                 </div>
-                
+
                 <div class="p-3 rounded-lg text-sm" style="background: #fef3c7; color: #92400e;">
                     <strong>⚠️ חשוב:</strong> אין אפשרות לשחזר סיסמה שאבדה. שמור את הסיסמה במקום בטוח!
                 </div>
-                
-                <button onclick="handleRegister()" class="w-full py-3 rounded-lg text-white font-medium transition hover:opacity-90" 
-                        style="background: var(--savings-color);">💾 צור משתמש</button>
-                
-                <button onclick="showLogin()" class="w-full py-3 rounded-lg font-medium transition hover:opacity-90" 
-                        style="background: var(--bg-tertiary); color: var(--text-primary);">↩️ חזרה להתחברות</button>
+
+                <button onclick="handleRegister()" class="w-full py-3 text-white font-medium transition login-button-primary">💾 צור משתמש</button>
+
+                <button onclick="showLogin()" class="w-full py-3 font-medium transition login-button-secondary">↩️ חזרה להתחברות</button>
             </div>
         </div>
     </div>
