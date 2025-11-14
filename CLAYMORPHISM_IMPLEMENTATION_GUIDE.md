@@ -17,14 +17,15 @@
 ## Design Philosophy
 
 ### Core Principles
-Smart Finance Pro uses **Gentle Claymorphism** - a design approach that creates soft, tactile interfaces that feel professional yet approachable. Perfect for families managing finances together.
+Smart Finance Pro uses **INTENSE Claymorphism** - a bold, tactile design approach that creates highly sculpted interfaces with pronounced depth and vibrant pastels. Perfect for families who want an engaging, delightful financial management experience.
 
 **Key Characteristics:**
-- **Soft & Sculpted**: UI elements appear as if molded from soft clay
-- **Multi-layered Depth**: Dual shadows (light + dark) create 3D dimensionality
-- **Muted Pastels**: Colors are desaturated 60-70% for professional restraint
-- **Rounded Organic**: Large border-radius values (18-40px) for friendly feel
-- **Trustworthy**: Balanced warm/cool tones inspire financial confidence
+- **Highly Sculpted**: UI elements appear as deeply molded clay with extreme depth
+- **Dramatic 3D Depth**: Multi-layered shadows create strong dimensional effects
+- **Vibrant Pastels**: Colors are moderately saturated for visual impact while remaining soft
+- **Ultra-Rounded**: Exaggerated border-radius values (18-56px) for maximum organic feel
+- **Tactile & Engaging**: Pronounced hover effects make interactions feel physical and responsive
+- **Trustworthy Yet Fun**: Balanced professional reliability with delightful playfulness
 
 ---
 
@@ -38,25 +39,25 @@ Smart Finance Pro uses **Gentle Claymorphism** - a design approach that creates 
 --clay-bg-elevated: #FFFFFF      /* Highest elevation modals */
 ```
 
-### Accent Pastels
+### Accent Pastels (INTENSE)
 ```css
---clay-mint: #D4F4DD             /* Growth, income, positive */
---clay-lavender: #E8E4F3         /* Stability, neutrality */
---clay-peach: #FFE8DC            /* Attention, warmth */
---clay-sky: #DDF2FF              /* Trust, reliability */
---clay-blush: #FFE4E9            /* Warmth, approachability */
---clay-cream: #FFF9E6            /* Gentle warnings */
+--clay-mint: #C0F0D1             /* Brighter mint green */
+--clay-lavender: #DDD6F3         /* More vibrant lavender */
+--clay-peach: #FFD9C4            /* Stronger peach */
+--clay-sky: #C8E9FF              /* Brighter sky blue */
+--clay-blush: #FFD1DC            /* More vibrant blush */
+--clay-cream: #FFF3D6            /* Richer cream */
 ```
 
-### Semantic Financial Colors
+### Semantic Financial Colors (INTENSE)
 ```css
---clay-income: #A8E6CF           /* Softer mint */
---clay-expense: #FFB8B8          /* Soft coral */
---clay-savings: #B8D4FF          /* Soft periwinkle */
---clay-asset: #D4C5F9            /* Soft purple */
---clay-liability: #FFB8D4        /* Soft rose */
---clay-networth: #B8F4E6         /* Soft teal */
---clay-warning: #FFD6A5          /* Soft amber */
+--clay-income: #8FE0B8           /* Vibrant mint - 20% more saturated */
+--clay-expense: #FFA0A0          /* Richer coral - stronger impact */
+--clay-savings: #A0C4FF          /* Deeper periwinkle - more presence */
+--clay-asset: #C4B0F9            /* Richer purple - enhanced vibrancy */
+--clay-liability: #FFA0C4        /* Vibrant rose - bolder statement */
+--clay-networth: #A0E8D6         /* Brighter teal - clearer distinction */
+--clay-warning: #FFC88A          /* Richer amber - better visibility */
 ```
 
 ### Text Colors (High Contrast)
@@ -134,50 +135,53 @@ h1 {
 
 ---
 
-## Shadow System
+## Shadow System (INTENSE)
 
 ### Philosophy
-Claymorphism uses **dual-direction shadows** to simulate light sources from top-left and bottom-right, creating sculptural depth.
+INTENSE Claymorphism uses **dramatic dual-direction shadows** with much larger offsets and higher opacity to create pronounced sculptural depth. Shadows are 2-3x stronger than standard claymorphism for maximum 3D effect.
 
-### Inner Shadows (Pressed/Inset Feel)
+### Inner Shadows (Deep Pressed/Inset Feel)
 ```css
---shadow-inner-sm: inset 2px 2px 6px rgba(209, 196, 233, 0.3),
-                   inset -2px -2px 6px rgba(255, 255, 255, 0.7);
+--shadow-inner-sm: inset 4px 4px 10px rgba(209, 196, 233, 0.45),
+                   inset -4px -4px 10px rgba(255, 255, 255, 0.85);
 
---shadow-inner-md: inset 3px 3px 8px rgba(209, 196, 233, 0.4),
-                   inset -3px -3px 8px rgba(255, 255, 255, 0.8);
+--shadow-inner-md: inset 6px 6px 14px rgba(209, 196, 233, 0.55),
+                   inset -6px -6px 14px rgba(255, 255, 255, 0.95);
 ```
+**DOUBLED offsets (2px→4px, 3px→6px) + 50% higher opacity for stronger inward effect**
 
-### Outer Shadows (Raised/Elevated Feel)
+### Outer Shadows (Dramatically Raised/Elevated Feel)
 ```css
---shadow-clay-xs: 2px 2px 6px rgba(209, 196, 233, 0.2),
-                  -2px -2px 6px rgba(255, 255, 255, 0.8),
-                  4px 4px 12px rgba(209, 196, 233, 0.1);
+--shadow-clay-xs: 4px 4px 12px rgba(209, 196, 233, 0.35),
+                  -4px -4px 12px rgba(255, 255, 255, 1),
+                  8px 8px 20px rgba(209, 196, 233, 0.2);
 
---shadow-clay-sm: 4px 4px 12px rgba(209, 196, 233, 0.25),
-                  -4px -4px 12px rgba(255, 255, 255, 0.9),
-                  8px 8px 20px rgba(209, 196, 233, 0.15);
+--shadow-clay-sm: 8px 8px 20px rgba(209, 196, 233, 0.4),
+                  -8px -8px 20px rgba(255, 255, 255, 1),
+                  14px 14px 35px rgba(209, 196, 233, 0.25);
 
---shadow-clay-md: 6px 6px 18px rgba(209, 196, 233, 0.3),
-                  -6px -6px 18px rgba(255, 255, 255, 0.95),
-                  12px 12px 28px rgba(209, 196, 233, 0.2);
+--shadow-clay-md: 12px 12px 30px rgba(209, 196, 233, 0.45),
+                  -12px -12px 30px rgba(255, 255, 255, 1),
+                  20px 20px 50px rgba(209, 196, 233, 0.3);
 
---shadow-clay-lg: 10px 10px 30px rgba(209, 196, 233, 0.35),
-                  -10px -10px 30px rgba(255, 255, 255, 1),
-                  18px 18px 45px rgba(209, 196, 233, 0.25);
+--shadow-clay-lg: 18px 18px 45px rgba(209, 196, 233, 0.5),
+                  -18px -18px 45px rgba(255, 255, 255, 1),
+                  30px 30px 70px rgba(209, 196, 233, 0.35);
 ```
+**DOUBLED offsets + 60% higher opacity = extreme depth perception**
 
-### Interactive States
+### Interactive States (Extremely Pronounced)
 ```css
-/* Hover - Enhanced depth */
---shadow-clay-hover: 8px 8px 24px rgba(209, 196, 233, 0.4),
-                     -8px -8px 24px rgba(255, 255, 255, 1),
-                     14px 14px 35px rgba(209, 196, 233, 0.25);
+/* Hover - DRAMATICALLY Enhanced depth */
+--shadow-clay-hover: 16px 16px 40px rgba(209, 196, 233, 0.55),
+                     -16px -16px 40px rgba(255, 255, 255, 1),
+                     24px 24px 60px rgba(209, 196, 233, 0.4);
 
-/* Pressed - Inward effect */
---shadow-clay-pressed: inset 4px 4px 10px rgba(209, 196, 233, 0.4),
-                       inset -2px -2px 8px rgba(255, 255, 255, 0.6);
+/* Pressed - STRONG Inward effect */
+--shadow-clay-pressed: inset 8px 8px 18px rgba(209, 196, 233, 0.55),
+                       inset -4px -4px 14px rgba(255, 255, 255, 0.75);
 ```
+**Hover: 2x offset (8px→16px), Pressed: 2x stronger for tactile feedback**
 
 **Shadow Color (rgba(209, 196, 233)):**
 This is lavender at ~50% opacity, creating warm shadows instead of cold grays.
@@ -188,48 +192,49 @@ This is lavender at ~50% opacity, creating warm shadows instead of cold grays.
 
 ### Buttons
 
-**Primary Button:**
+**Primary Button (INTENSE):**
 ```css
 .btn-primary {
     background: var(--clay-bg-surface);
-    border: 2px solid var(--clay-border-soft);
-    border-radius: var(--radius-md);
+    border: 3px solid var(--clay-border-soft);  /* Thicker border */
+    border-radius: var(--radius-md);  /* 28px - ultra rounded */
     padding: var(--space-3) var(--space-5);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-bold);  /* Bolder text */
     color: var(--clay-text-primary);
-    box-shadow: var(--shadow-clay-sm);
+    box-shadow: var(--shadow-clay-md);  /* Stronger base shadow */
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px) scale(1.02);  /* 2x movement + scale */
     box-shadow: var(--shadow-clay-hover);
 }
 
 .btn-primary:active {
-    transform: translateY(0);
+    transform: translateY(1px) scale(0.98);  /* Strong press feedback */
     box-shadow: var(--shadow-clay-pressed);
 }
 ```
 
 ### Cards
 
-**Summary Card:**
+**Summary Card (INTENSE):**
 ```css
 .summary-card {
     background: linear-gradient(135deg, #FFFFFF 0%, var(--clay-savings) 100%);
-    border: 2px solid var(--clay-border-soft);
-    border-radius: var(--radius-lg);
+    border: 3px solid var(--clay-border-soft);  /* Thicker border */
+    border-radius: var(--radius-lg);  /* 36px - super rounded */
     padding: var(--space-6);
     box-shadow: var(--shadow-clay-md);
     transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .summary-card:hover {
-    transform: translateY(-6px) scale(1.01);
+    transform: translateY(-12px) scale(1.03);  /* 2x lift + stronger scale */
     box-shadow: var(--shadow-clay-hover);
 }
 ```
+**INTENSE: Cards lift dramatically on hover (12px vs 6px) with pronounced scale**
 
 ### Inputs
 
@@ -494,15 +499,16 @@ styles/
 --space-16: 64px
 ```
 
-### Border Radius
+### Border Radius (INTENSE - Ultra Rounded)
 ```
---radius-sm: 12px
---radius-md: 18px
---radius-lg: 24px
---radius-xl: 32px
---radius-2xl: 40px
+--radius-sm: 18px    (+50% from standard 12px)
+--radius-md: 28px    (+55% from standard 18px)
+--radius-lg: 36px    (+50% from standard 24px)
+--radius-xl: 48px    (+50% from standard 32px)
+--radius-2xl: 56px   (+40% from standard 40px)
 --radius-full: 9999px
 ```
+**All radius values dramatically increased for ultra-organic, clay-like shapes**
 
 ### Common Transitions
 ```css
