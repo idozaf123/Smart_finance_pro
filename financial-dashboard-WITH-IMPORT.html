@@ -32,136 +32,120 @@
     
     <style>
         /* ====================================================================
-           SMART FINANCE PRO - CLAYMORPHISM DESIGN SYSTEM
-           Professional & Trustworthy Clay UI for Family Finance
+           SMART FINANCE PRO - NEO-BRUTALISM DESIGN SYSTEM
+           Polished Brutalism: Bold, Functional, Trustworthy
+           Raw aesthetics meet financial clarity
            ==================================================================== */
 
+        /* Import bold brutalist fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&family=Space+Mono:wght@700&display=swap');
+
         :root {
-            /* ============ BASE BACKGROUND COLORS ============ */
-            --clay-bg-canvas: #F5F3F7;        /* Soft lavender-tinted white - main canvas */
-            --clay-bg-surface: #FEFCFF;       /* Pure soft white - raised surfaces */
-            --clay-bg-elevated: #FFFFFF;      /* Crisp white - highest elevation */
+            /* ============ NEO-BRUTALIST COLOR PALETTE ============ */
+            /* Core Structure Colors */
+            --brutal-black: #000000;           /* Pure black - borders, text, structure */
+            --brutal-white: #FFFFFF;           /* Pure white - backgrounds, contrast */
+            --brutal-gray: #CCCCCC;            /* Secondary backgrounds, disabled states */
+            --brutal-darkgray: #666666;        /* Secondary text */
 
-            /* ============ ACCENT PASTEL COLORS (INTENSE) ============ */
-            --clay-mint: #C0F0D1;             /* Brighter mint green - income, growth */
-            --clay-lavender: #DDD6F3;         /* More vibrant lavender - savings */
-            --clay-peach: #FFD9C4;            /* Stronger peach - alerts */
-            --clay-sky: #C8E9FF;              /* Brighter sky blue - assets */
-            --clay-blush: #FFD1DC;            /* More vibrant blush - liabilities */
-            --clay-cream: #FFF3D6;            /* Richer cream - warnings */
+            /* Financial Psychology Colors (High Saturation) */
+            --brutal-blue: #0066FF;            /* Trust, savings, primary actions - ELECTRIC BLUE */
+            --brutal-red: #FF0033;             /* Danger, expenses, alerts - BRIGHT RED */
+            --brutal-green: #00FF66;           /* Success, income, growth - NEON GREEN */
+            --brutal-yellow: #FFCC00;          /* Warnings, highlights - BRIGHT YELLOW */
+            --brutal-cyan: #00FFFF;            /* Net worth, unique identifier - CYAN */
+            --brutal-magenta: #FF00FF;         /* Assets, special items - MAGENTA */
 
-            /* ============ SEMANTIC FINANCIAL COLORS (INTENSE) ============ */
-            --clay-income: #8FE0B8;           /* Vibrant mint - income */
-            --clay-expense: #FFA0A0;          /* Richer coral - expenses */
-            --clay-savings: #A0C4FF;          /* Deeper periwinkle - savings */
-            --clay-asset: #C4B0F9;            /* Richer purple - assets */
-            --clay-liability: #FFA0C4;        /* Vibrant rose - liabilities */
-            --clay-networth: #A0E8D6;         /* Brighter teal - net worth */
-            --clay-warning: #FFC88A;          /* Richer amber - warnings */
+            /* Semantic Financial Colors */
+            --income-color: var(--brutal-green);
+            --expense-color: var(--brutal-red);
+            --savings-color: var(--brutal-blue);
+            --warning-color: var(--brutal-yellow);
+            --asset-color: var(--brutal-magenta);
+            --liability-color: var(--brutal-red);
+            --networth-color: var(--brutal-cyan);
 
-            /* ============ TEXT COLORS (High Contrast) ============ */
-            --clay-text-primary: #2D3142;     /* Deep slate - primary text */
-            --clay-text-secondary: #6B7280;   /* Medium gray - secondary text */
-            --clay-text-tertiary: #9CA3AF;    /* Light gray - tertiary text */
-            --clay-text-on-color: #1F2937;    /* Nearly black - text on colored backgrounds */
+            /* Legacy compatibility */
+            --bg-primary: var(--brutal-white);
+            --bg-secondary: var(--brutal-gray);
+            --bg-tertiary: var(--brutal-gray);
+            --text-primary: var(--brutal-black);
+            --text-secondary: var(--brutal-darkgray);
+            --border-color: var(--brutal-black);
+            --glass-border: 4px solid var(--brutal-black);
+            --glass-bg: var(--brutal-white);
 
-            /* ============ BORDER COLORS ============ */
-            --clay-border-soft: #E8DFF5;      /* Lavender-tinted border */
-            --clay-border-medium: #D9CCEC;    /* Medium lavender border */
+            /* ============ BRUTALIST TYPOGRAPHY ============ */
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Arial Black', sans-serif;
+            --font-mono: 'Space Mono', 'Courier New', monospace;
 
-            /* ============ TYPOGRAPHY SYSTEM ============ */
-            --font-primary: 'Nunito', 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            --font-weight-regular: 400;
-            --font-weight-medium: 600;
             --font-weight-bold: 700;
-            --font-weight-extra-bold: 800;
+            --font-weight-black: 900;
 
+            /* Aggressive type scale */
             --text-xs: 0.75rem;      /* 12px */
             --text-sm: 0.875rem;     /* 14px */
             --text-base: 1rem;       /* 16px */
-            --text-lg: 1.125rem;     /* 18px */
-            --text-xl: 1.25rem;      /* 20px */
-            --text-2xl: 1.5rem;      /* 24px */
-            --text-3xl: 1.875rem;    /* 30px */
-            --text-4xl: 2.25rem;     /* 36px */
+            --text-lg: 1.25rem;      /* 20px - BIGGER */
+            --text-xl: 1.5rem;       /* 24px - BIGGER */
+            --text-2xl: 2rem;        /* 32px - MUCH BIGGER */
+            --text-3xl: 2.5rem;      /* 40px - HUGE */
+            --text-4xl: 3rem;        /* 48px - MASSIVE */
 
-            --leading-tight: 1.25;
-            --leading-normal: 1.5;
-            --leading-relaxed: 1.75;
+            --leading-tight: 1.1;
+            --leading-normal: 1.4;
+            --leading-relaxed: 1.6;
 
-            /* ============ SPACING SCALE (8px base) ============ */
-            --space-1: 0.25rem;   /* 4px */
-            --space-2: 0.5rem;    /* 8px */
-            --space-3: 0.75rem;   /* 12px */
-            --space-4: 1rem;      /* 16px */
-            --space-5: 1.25rem;   /* 20px */
-            --space-6: 1.5rem;    /* 24px */
-            --space-8: 2rem;      /* 32px */
-            --space-10: 2.5rem;   /* 40px */
-            --space-12: 3rem;     /* 48px */
-            --space-16: 4rem;     /* 64px */
+            /* ============ SPACING (8px base - SAME) ============ */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
 
-            /* ============ BORDER RADIUS (INTENSE - Highly Organic) ============ */
-            --radius-sm: 18px;    /* Small elements - MORE ROUNDED */
-            --radius-md: 28px;    /* Medium - buttons, inputs - VERY ROUNDED */
-            --radius-lg: 36px;    /* Large - cards - SUPER ROUNDED */
-            --radius-xl: 48px;    /* Extra large - modals - ULTRA ROUNDED */
-            --radius-2xl: 56px;   /* Hero elements - MEGA ROUNDED */
-            --radius-full: 9999px; /* Circular */
+            /* ============ BRUTALIST GEOMETRY ============ */
+            /* Minimal/zero border radius for harsh edges */
+            --radius-none: 0px;          /* Pure brutalism */
+            --radius-minimal: 2px;       /* Slight softening */
+            --radius-sm: 0px;
+            --radius-md: 0px;
+            --radius-lg: 2px;
+            --radius-xl: 2px;
+            --radius-2xl: 2px;
+            --radius-full: 0px;          /* No circles in brutalism */
 
-            /* ============ CLAY SHADOW SYSTEM (INTENSE) ============ */
-            /* Inner Shadows (pressed/inset) - DEEPER */
-            --shadow-inner-sm: inset 4px 4px 10px rgba(209, 196, 233, 0.45),
-                               inset -4px -4px 10px rgba(255, 255, 255, 0.85);
+            /* ============ BRUTALIST BORDERS ============ */
+            --border-thin: 3px;
+            --border-thick: 5px;
+            --border-mega: 8px;
 
-            --shadow-inner-md: inset 6px 6px 14px rgba(209, 196, 233, 0.55),
-                               inset -6px -6px 14px rgba(255, 255, 255, 0.95);
+            /* ============ HARD DROP SHADOWS (NO BLUR!) ============ */
+            /* Brutal shadows = offset with NO blur, pure black */
+            --shadow-brutal-sm: 4px 4px 0 var(--brutal-black);
+            --shadow-brutal-md: 6px 6px 0 var(--brutal-black);
+            --shadow-brutal-lg: 8px 8px 0 var(--brutal-black);
+            --shadow-brutal-xl: 12px 12px 0 var(--brutal-black);
 
-            /* Outer Shadows (raised/elevated) - MUCH STRONGER */
-            --shadow-clay-xs: 4px 4px 12px rgba(209, 196, 233, 0.35),
-                              -4px -4px 12px rgba(255, 255, 255, 1),
-                              8px 8px 20px rgba(209, 196, 233, 0.2);
+            /* Colored shadows for emphasis */
+            --shadow-brutal-blue: 6px 6px 0 var(--brutal-blue);
+            --shadow-brutal-red: 6px 6px 0 var(--brutal-red);
+            --shadow-brutal-green: 6px 6px 0 var(--brutal-green);
 
-            --shadow-clay-sm: 8px 8px 20px rgba(209, 196, 233, 0.4),
-                              -8px -8px 20px rgba(255, 255, 255, 1),
-                              14px 14px 35px rgba(209, 196, 233, 0.25);
+            /* Hover: offset increases */
+            --shadow-brutal-hover: 10px 10px 0 var(--brutal-black);
 
-            --shadow-clay-md: 12px 12px 30px rgba(209, 196, 233, 0.45),
-                              -12px -12px 30px rgba(255, 255, 255, 1),
-                              20px 20px 50px rgba(209, 196, 233, 0.3);
+            /* Pressed: offset decreases to simulate press */
+            --shadow-brutal-pressed: 2px 2px 0 var(--brutal-black);
 
-            --shadow-clay-lg: 18px 18px 45px rgba(209, 196, 233, 0.5),
-                              -18px -18px 45px rgba(255, 255, 255, 1),
-                              30px 30px 70px rgba(209, 196, 233, 0.35);
-
-            /* Hover States - DRAMATICALLY ENHANCED depth */
-            --shadow-clay-hover: 16px 16px 40px rgba(209, 196, 233, 0.55),
-                                 -16px -16px 40px rgba(255, 255, 255, 1),
-                                 24px 24px 60px rgba(209, 196, 233, 0.4);
-
-            /* Pressed States - STRONG Inward effect */
-            --shadow-clay-pressed: inset 8px 8px 18px rgba(209, 196, 233, 0.55),
-                                   inset -4px -4px 14px rgba(255, 255, 255, 0.75);
-
-            /* Legacy variable compatibility (for existing HTML classes) */
-            --bg-primary: var(--clay-bg-canvas);
-            --bg-secondary: var(--clay-bg-surface);
-            --bg-tertiary: var(--clay-lavender);
-            --text-primary: var(--clay-text-primary);
-            --text-secondary: var(--clay-text-secondary);
-            --border-color: var(--clay-border-soft);
-            --income-color: var(--clay-income);
-            --expense-color: var(--clay-expense);
-            --savings-color: var(--clay-savings);
-            --warning-color: var(--clay-warning);
-            --asset-color: var(--clay-asset);
-            --liability-color: var(--clay-liability);
-            --networth-color: var(--clay-networth);
-            --shadow-sm: var(--shadow-clay-sm);
-            --shadow-md: var(--shadow-clay-md);
-            --shadow-lg: var(--shadow-clay-lg);
-            --glass-border: 1px solid var(--clay-border-soft);
-            --glass-bg: var(--clay-bg-surface);
+            /* Legacy shadow compat */
+            --shadow-sm: var(--shadow-brutal-sm);
+            --shadow-md: var(--shadow-brutal-md);
+            --shadow-lg: var(--shadow-brutal-lg);
         }
 
         /* ============ GLOBAL STYLES ============ */
@@ -173,57 +157,27 @@
 
         body {
             font-family: var(--font-primary);
-            background: var(--clay-bg-canvas);
-            color: var(--clay-text-primary);
+            background: var(--brutal-white);
+            color: var(--brutal-black);
             line-height: var(--leading-normal);
             position: relative;
             overflow-x: hidden;
-            transition: background-color 0.3s ease;
+            font-weight: var(--font-weight-bold);
         }
 
-        /* ============ CLAY ANIMATIONS & KEYFRAMES ============ */
+        /* ============ BRUTALIST ANIMATIONS & KEYFRAMES ============ */
 
-        /* Gentle bounce for buttons */
-        @keyframes clayBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-4px); }
+        /* Hard snap - no smooth transitions */
+        @keyframes brutalSnap {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-4px, -4px); }
         }
 
-        /* Soft pulse for loading states */
-        @keyframes clayPulse {
-            0%, 100% {
-                opacity: 1;
-                box-shadow: var(--shadow-clay-sm);
-            }
-            50% {
-                opacity: 0.9;
-                box-shadow: var(--shadow-clay-md);
-            }
-        }
-
-        /* Morphing shadow on hover */
-        @keyframes shadowMorph {
-            0% { box-shadow: var(--shadow-clay-sm); }
-            100% { box-shadow: var(--shadow-clay-hover); }
-        }
-
-        /* Fade in with gentle scale */
+        /* Abrupt fade - no gradual opacity */
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px) scale(0.98);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        /* Float in from bottom */
-        @keyframes floatIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(8px);
             }
             to {
                 opacity: 1;
@@ -231,87 +185,83 @@
             }
         }
 
-        /* Subtle float animation */
-        @keyframes gentleFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
+        /* Harsh pulse - instant state changes */
+        @keyframes brutalPulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.85;
+            }
         }
 
         .fade-in {
-            animation: fadeIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: fadeIn 0.2s steps(3, end);
         }
-        
-        /* ============ CLAYMORPHIC SCROLLBAR ============ */
+
+        /* ============ BRUTALIST SCROLLBAR ============ */
         ::-webkit-scrollbar {
-            width: 12px;
+            width: 16px;
         }
         ::-webkit-scrollbar-track {
-            background: var(--clay-lavender);
-            border-radius: var(--radius-full);
-            margin: 4px;
+            background: var(--brutal-gray);
+            border: var(--border-thin) solid var(--brutal-black);
         }
         ::-webkit-scrollbar-thumb {
-            background: var(--clay-savings);
-            border-radius: var(--radius-full);
-            border: 2px solid var(--clay-lavender);
-            box-shadow: var(--shadow-inner-sm);
-            transition: all 0.3s ease;
+            background: var(--brutal-blue);
+            border: var(--border-thin) solid var(--brutal-black);
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: var(--clay-asset);
-            box-shadow: var(--shadow-clay-sm);
+            background: var(--brutal-cyan);
         }
         
-        /* ============ CLAY ASSET/LIABILITY ITEMS ============ */
+        /* ============ BRUTALIST ASSET/LIABILITY ITEMS ============ */
         .asset-item, .liability-item {
-            background: var(--clay-bg-surface);
+            background: var(--brutal-white);
             padding: var(--space-4);
             border-radius: var(--radius-lg);
             margin-bottom: var(--space-3);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            border: 2px solid var(--clay-border-soft);
-            box-shadow: var(--shadow-clay-sm);
+            border: var(--border-thick) solid var(--brutal-black);
+            box-shadow: var(--shadow-brutal-md);
             position: relative;
         }
 
         .asset-item {
-            border-right-color: var(--clay-asset);
-            border-right-width: 4px;
+            border-left: var(--border-mega) solid var(--brutal-magenta);
         }
 
         .liability-item {
-            border-right-color: var(--clay-liability);
-            border-right-width: 4px;
+            border-left: var(--border-mega) solid var(--brutal-red);
         }
 
         .asset-item:hover, .liability-item:hover {
-            transform: translateX(-8px) translateY(-4px) scale(1.01);
-            box-shadow: var(--shadow-clay-hover);
+            transform: translate(-4px, -4px);
+            box-shadow: var(--shadow-brutal-hover);
         }
 
         .asset-item:active, .liability-item:active {
-            transform: translateX(-4px) translateY(0);
-            box-shadow: var(--shadow-clay-pressed);
+            transform: translate(0, 0);
+            box-shadow: var(--shadow-brutal-pressed);
         }
-        
+
         .item-details {
             flex: 1;
         }
 
         .item-description {
-            font-weight: var(--font-weight-medium);
+            font-weight: var(--font-weight-black);
             margin-bottom: var(--space-1);
             font-size: var(--text-lg);
-            color: var(--clay-text-primary);
+            color: var(--brutal-black);
         }
 
         .item-amount {
-            font-size: var(--text-xl);
-            font-weight: var(--font-weight-bold);
-            color: var(--clay-text-primary);
+            font-size: var(--text-2xl);
+            font-weight: var(--font-weight-black);
+            color: var(--brutal-black);
         }
 
         .item-category {
@@ -319,19 +269,20 @@
             padding: var(--space-1) var(--space-3);
             border-radius: var(--radius-sm);
             font-size: var(--text-xs);
-            font-weight: var(--font-weight-medium);
-            background: var(--clay-lavender);
-            color: var(--clay-text-secondary);
+            font-weight: var(--font-weight-black);
+            background: var(--brutal-yellow);
+            color: var(--brutal-black);
             margin-bottom: var(--space-1);
-            box-shadow: var(--shadow-inner-sm);
+            border: var(--border-thin) solid var(--brutal-black);
         }
 
         .item-date {
             font-size: var(--text-xs);
-            color: var(--clay-text-tertiary);
+            color: var(--brutal-black);
+            font-weight: var(--font-weight-bold);
         }
 
-        /* ============ CLAY DATE SELECTOR ============ */
+        /* ============ BRUTALIST DATE SELECTOR ============ */
         .extended-date-selector {
             display: flex;
             align-items: center;
@@ -340,32 +291,33 @@
 
         .date-nav-btn {
             padding: var(--space-3);
-            border-radius: var(--radius-md);
-            background: var(--clay-bg-surface);
-            border: 2px solid var(--clay-border-soft);
+            border-radius: var(--radius-sm);
+            background: var(--brutal-white);
+            border: var(--border-thick) solid var(--brutal-black);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: var(--shadow-clay-sm);
-            color: var(--clay-text-primary);
-            font-weight: var(--font-weight-medium);
+            box-shadow: var(--shadow-brutal-sm);
+            color: var(--brutal-black);
+            font-weight: var(--font-weight-black);
         }
 
         .date-nav-btn:hover {
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: var(--shadow-clay-hover);
+            transform: translate(-2px, -2px);
+            box-shadow: var(--shadow-brutal-md);
+            background: var(--brutal-yellow);
         }
 
         .date-nav-btn:active {
-            transform: scale(1) translateY(0);
-            box-shadow: var(--shadow-clay-pressed);
+            transform: translate(0, 0);
+            box-shadow: var(--shadow-brutal-pressed);
         }
-        
+
         /* ============ GAUGE CHART ============ */
         .gauge-container {
             position: relative;
             width: 200px;
             height: 200px;
             margin: 0 auto;
+            border: var(--border-thick) solid var(--brutal-black);
         }
 
         .gauge-text {
@@ -374,128 +326,110 @@
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            font-weight: var(--font-weight-bold);
-            color: var(--clay-text-primary);
+            font-weight: var(--font-weight-black);
+            color: var(--brutal-black);
         }
 
-        /* ============ CLAY CARDS (INTENSE) ============ */
+        /* ============ BRUTALIST CARDS ============ */
         .card-hover {
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
-            background: var(--clay-bg-surface);
-            border: 3px solid var(--clay-border-soft);
-            box-shadow: var(--shadow-clay-md);
+            background: var(--brutal-white);
+            border: var(--border-thick) solid var(--brutal-black);
+            box-shadow: var(--shadow-brutal-md);
         }
 
         .card-hover:hover {
-            transform: translateY(-12px) scale(1.03);
-            box-shadow: var(--shadow-clay-hover);
+            transform: translate(-4px, -4px);
+            box-shadow: var(--shadow-brutal-hover);
         }
 
         .card-hover:active {
-            transform: translateY(-4px) scale(1.01);
-            box-shadow: var(--shadow-clay-md);
+            transform: translate(0, 0);
+            box-shadow: var(--shadow-brutal-pressed);
         }
 
-        /* INTENSE highlight effect on hover */
-        .card-hover::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            background: linear-gradient(135deg, rgba(221, 214, 243, 0.5), rgba(255, 255, 255, 0.2));
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-        }
-
-        .card-hover:hover::before {
-            opacity: 1;
-        }
-        
-        /* ============ CLAY GRADIENT CARDS ============ */
-        /* Soft pastel gradients with clay depth */
+        /* ============ BRUTALIST SOLID COLOR CARDS ============ */
+        /* NO gradients - solid fills with thick borders */
 
         .gradient-income {
-            background: linear-gradient(135deg, #FFFFFF 0%, var(--clay-income) 100%);
-            border: 2px solid var(--clay-border-soft);
-            box-shadow: var(--shadow-clay-md);
+            background: var(--brutal-green);
+            border: var(--border-thick) solid var(--brutal-black);
+            box-shadow: var(--shadow-brutal-md);
             position: relative;
             overflow: hidden;
         }
 
         .gradient-expense {
-            background: linear-gradient(135deg, #FFFFFF 0%, var(--clay-expense) 100%);
-            border: 2px solid var(--clay-border-soft);
-            box-shadow: var(--shadow-clay-md);
+            background: var(--brutal-red);
+            border: var(--border-thick) solid var(--brutal-black);
+            box-shadow: var(--shadow-brutal-md);
             position: relative;
             overflow: hidden;
         }
 
         .gradient-savings {
-            background: linear-gradient(135deg, #FFFFFF 0%, var(--clay-savings) 100%);
-            border: 2px solid var(--clay-border-soft);
-            box-shadow: var(--shadow-clay-md);
+            background: var(--brutal-blue);
+            border: var(--border-thick) solid var(--brutal-black);
+            box-shadow: var(--shadow-brutal-md);
             position: relative;
             overflow: hidden;
         }
 
         .gradient-asset {
-            background: linear-gradient(135deg, #FFFFFF 0%, var(--clay-asset) 100%);
-            border: 2px solid var(--clay-border-soft);
-            box-shadow: var(--shadow-clay-md);
+            background: var(--brutal-magenta);
+            border: var(--border-thick) solid var(--brutal-black);
+            box-shadow: var(--shadow-brutal-md);
             position: relative;
             overflow: hidden;
         }
 
         .gradient-liability {
-            background: linear-gradient(135deg, #FFFFFF 0%, var(--clay-liability) 100%);
-            border: 2px solid var(--clay-border-soft);
-            box-shadow: var(--shadow-clay-md);
+            background: var(--brutal-red);
+            border: var(--border-thick) solid var(--brutal-black);
+            box-shadow: var(--shadow-brutal-md);
             position: relative;
             overflow: hidden;
         }
 
         .gradient-networth {
-            background: linear-gradient(135deg, #FFFFFF 0%, var(--clay-networth) 100%);
-            border: 2px solid var(--clay-border-soft);
-            box-shadow: var(--shadow-clay-md);
+            background: var(--brutal-cyan);
+            border: var(--border-thick) solid var(--brutal-black);
+            box-shadow: var(--shadow-brutal-md);
             position: relative;
             overflow: hidden;
         }
 
-        /* Hover effect for all gradient cards */
+        /* Hover effect for all solid color cards */
         .gradient-income:hover, .gradient-expense:hover, .gradient-savings:hover,
         .gradient-asset:hover, .gradient-liability:hover, .gradient-networth:hover {
-            animation: gentleFloat 2s ease-in-out infinite;
+            transform: translate(-4px, -4px);
+            box-shadow: var(--shadow-brutal-hover);
         }
         
-        /* ============ CLAY MODAL ============ */
+        /* ============ BRUTALIST MODAL ============ */
         .modal-backdrop {
-            background: rgba(245, 243, 247, 0.85);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.75);
         }
 
-        /* ============ CLAY TOAST NOTIFICATIONS ============ */
+        /* ============ BRUTALIST TOAST NOTIFICATIONS ============ */
         .toast {
             position: fixed;
             bottom: 2rem;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
-            background: var(--clay-bg-elevated);
-            color: var(--clay-text-primary);
+            background: var(--brutal-yellow);
+            color: var(--brutal-black);
             padding: var(--space-5) var(--space-8);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-clay-lg);
-            border: 2px solid var(--clay-border-medium);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-brutal-lg);
+            border: var(--border-thick) solid var(--brutal-black);
             display: flex;
             align-items: center;
             gap: var(--space-3);
             z-index: 1100;
             opacity: 0;
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             min-width: 300px;
+            font-weight: var(--font-weight-black);
         }
 
         .toast.show {
@@ -504,24 +438,23 @@
         }
 
         .toast-success {
-            border-left: 4px solid var(--clay-income);
+            background: var(--brutal-green);
+            border-left: var(--border-mega) solid var(--brutal-black);
         }
 
         .toast-undo {
             cursor: pointer;
-            color: var(--clay-savings);
-            font-weight: var(--font-weight-bold);
+            color: var(--brutal-black);
+            font-weight: var(--font-weight-black);
             text-decoration: underline;
             margin-right: var(--space-4);
-            transition: all 0.2s ease;
         }
 
         .toast-undo:hover {
-            color: var(--clay-asset);
-            transform: scale(1.05);
+            color: var(--brutal-red);
         }
-        
-        /* ============ CLAY GROWTH BADGES ============ */
+
+        /* ============ BRUTALIST GROWTH BADGES ============ */
         .growth-badge {
             display: inline-flex;
             align-items: center;
@@ -529,117 +462,110 @@
             padding: var(--space-1) var(--space-2);
             border-radius: var(--radius-sm);
             font-size: var(--text-sm);
-            font-weight: var(--font-weight-medium);
-            box-shadow: var(--shadow-inner-sm);
+            font-weight: var(--font-weight-black);
+            border: var(--border-thin) solid var(--brutal-black);
         }
 
         .growth-positive {
-            background-color: var(--clay-mint);
-            color: var(--clay-text-on-color);
+            background-color: var(--brutal-green);
+            color: var(--brutal-black);
         }
 
         .growth-negative {
-            background-color: var(--clay-peach);
-            color: var(--clay-text-on-color);
+            background-color: var(--brutal-red);
+            color: var(--brutal-black);
         }
 
-        /* ============ CLAY PERIOD SELECTOR ============ */
+        /* ============ BRUTALIST PERIOD SELECTOR ============ */
         .period-selector {
             display: inline-flex;
             gap: var(--space-2);
             padding: var(--space-2);
-            background: var(--clay-bg-surface);
-            border-radius: var(--radius-lg);
-            border: 2px solid var(--clay-border-soft);
-            box-shadow: var(--shadow-clay-sm);
+            background: var(--brutal-white);
+            border-radius: var(--radius-sm);
+            border: var(--border-thick) solid var(--brutal-black);
+            box-shadow: var(--shadow-brutal-sm);
         }
 
         .period-btn {
             padding: var(--space-3) var(--space-5);
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-sm);
             font-size: var(--text-sm);
-            font-weight: var(--font-weight-medium);
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-weight: var(--font-weight-black);
             cursor: pointer;
-            border: none;
-            background: transparent;
-            color: var(--clay-text-secondary);
+            border: var(--border-thin) solid var(--brutal-black);
+            background: var(--brutal-white);
+            color: var(--brutal-black);
         }
 
         .period-btn.active {
-            background: var(--clay-savings);
-            color: var(--clay-text-on-color);
-            box-shadow: var(--shadow-clay-sm);
-            transform: scale(1.05);
+            background: var(--brutal-blue);
+            color: var(--brutal-black);
+            box-shadow: var(--shadow-brutal-sm);
         }
 
         .period-btn:hover:not(.active) {
-            background: var(--clay-lavender);
-            transform: scale(1.02);
+            background: var(--brutal-yellow);
         }
 
         .period-btn:active {
-            box-shadow: var(--shadow-clay-pressed);
-            transform: scale(1);
+            box-shadow: var(--shadow-brutal-pressed);
         }
 
-        /* ============ CLAY TRANSACTION CARD ============ */
+        /* ============ BRUTALIST TRANSACTION CARD ============ */
         .transaction-card {
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
-            background: var(--clay-bg-surface);
-            border: 2px solid var(--clay-border-soft);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-clay-sm);
+            background: var(--brutal-white);
+            border: var(--border-thick) solid var(--brutal-black);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-brutal-sm);
         }
 
         .transaction-card:hover {
-            transform: translateY(-4px) scale(1.01);
-            box-shadow: var(--shadow-clay-hover);
+            transform: translate(-2px, -2px);
+            box-shadow: var(--shadow-brutal-md);
         }
 
         .transaction-card:active {
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-clay-md);
+            transform: translate(0, 0);
+            box-shadow: var(--shadow-brutal-pressed);
         }
-        
+
         /* ============ DRAG HANDLE ============ */
         .drag-handle {
             cursor: move;
-            color: var(--clay-text-tertiary);
-            opacity: 0;
-            transition: all 0.2s ease;
+            color: var(--brutal-black);
+            opacity: 0.3;
             font-size: var(--text-xl);
             padding: 0 var(--space-2);
             user-select: none;
+            font-weight: var(--font-weight-black);
         }
 
         .transaction-card:hover .drag-handle {
             opacity: 1;
-            color: var(--clay-text-secondary);
         }
 
         /* ============ CATEGORY HIGHLIGHT ============ */
         .category-highlight {
-            background: var(--clay-savings) !important;
-            color: var(--clay-text-on-color) !important;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: var(--shadow-clay-sm) !important;
+            background: var(--brutal-yellow) !important;
+            color: var(--brutal-black) !important;
+            border: var(--border-thin) solid var(--brutal-black) !important;
         }
 
-        /* ============ CLAY CATEGORY BADGES (Hebrew categories) ============ */
-        .badge-מזון { background: var(--clay-expense); color: var(--clay-text-on-color); box-shadow: var(--shadow-inner-sm); }
-        .badge-תחבורה { background: var(--clay-sky); color: var(--clay-text-on-color); box-shadow: var(--shadow-inner-sm); }
-        .badge-דיור { background: var(--clay-cream); color: var(--clay-text-on-color); box-shadow: var(--shadow-inner-sm); }
-        .badge-בידור { background: var(--clay-asset); color: var(--clay-text-on-color); box-shadow: var(--shadow-inner-sm); }
-        .badge-בריאות { background: var(--clay-mint); color: var(--clay-text-on-color); box-shadow: var(--shadow-inner-sm); }
-        .badge-קניות { background: var(--clay-blush); color: var(--clay-text-on-color); box-shadow: var(--shadow-inner-sm); }
-        .badge-חשבונות { background: var(--clay-peach); color: var(--clay-text-on-color); box-shadow: var(--shadow-inner-sm); }
-        .badge-אחר { background: var(--clay-lavender); color: var(--clay-text-secondary); box-shadow: var(--shadow-inner-sm); }
-        .badge-משכורת { background: var(--clay-income); color: var(--clay-text-on-color); box-shadow: var(--shadow-inner-sm); }
-        .badge-השקעות { background: var(--clay-savings); color: var(--clay-text-on-color); box-shadow: var(--shadow-inner-sm); }
+        /* ============ BRUTALIST CATEGORY BADGES (Hebrew categories) ============ */
+        .badge-מזון { background: var(--brutal-red); color: var(--brutal-black); border: var(--border-thin) solid var(--brutal-black); font-weight: var(--font-weight-black); }
+        .badge-תחבורה { background: var(--brutal-blue); color: var(--brutal-black); border: var(--border-thin) solid var(--brutal-black); font-weight: var(--font-weight-black); }
+        .badge-דיור { background: var(--brutal-yellow); color: var(--brutal-black); border: var(--border-thin) solid var(--brutal-black); font-weight: var(--font-weight-black); }
+        .badge-בידור { background: var(--brutal-magenta); color: var(--brutal-black); border: var(--border-thin) solid var(--brutal-black); font-weight: var(--font-weight-black); }
+        .badge-בריאות { background: var(--brutal-green); color: var(--brutal-black); border: var(--border-thin) solid var(--brutal-black); font-weight: var(--font-weight-black); }
+        .badge-קניות { background: var(--brutal-cyan); color: var(--brutal-black); border: var(--border-thin) solid var(--brutal-black); font-weight: var(--font-weight-black); }
+        .badge-חשבונות { background: var(--brutal-red); color: var(--brutal-black); border: var(--border-thin) solid var(--brutal-black); font-weight: var(--font-weight-black); }
+        .badge-אחר { background: var(--brutal-gray); color: var(--brutal-black); border: var(--border-thin) solid var(--brutal-black); font-weight: var(--font-weight-black); }
+        .badge-משכורת { background: var(--brutal-green); color: var(--brutal-black); border: var(--border-thin) solid var(--brutal-black); font-weight: var(--font-weight-black); }
+        .badge-השקעות { background: var(--brutal-blue); color: var(--brutal-black); border: var(--border-thin) solid var(--brutal-black); font-weight: var(--font-weight-black); }
         
-        /* ============ CLAY CONFIRM MODAL ============ */
+        /* ============ BRUTALIST CONFIRM MODAL ============ */
         .confirm-modal {
             position: fixed;
             inset: 0;
@@ -647,46 +573,41 @@
             display: none;
             align-items: center;
             justify-content: center;
-            background: rgba(245, 243, 247, 0.9);
-            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.75);
         }
 
         .confirm-modal.show {
             display: flex;
         }
 
-        /* ============ CLAY CATEGORY MANAGEMENT ============ */
+        /* ============ BRUTALIST CATEGORY MANAGEMENT ============ */
         .category-tabs {
             display: flex;
             gap: var(--space-2);
             margin-bottom: var(--space-6);
-            border-bottom: 3px solid var(--clay-lavender);
+            border-bottom: var(--border-thick) solid var(--brutal-black);
             padding-bottom: var(--space-2);
         }
 
         .category-tab {
             padding: var(--space-3) var(--space-6);
             cursor: pointer;
-            border: none;
-            background: transparent;
-            color: var(--clay-text-secondary);
-            font-weight: var(--font-weight-medium);
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            border-bottom: 3px solid transparent;
+            border: var(--border-thin) solid var(--brutal-black);
+            background: var(--brutal-white);
+            color: var(--brutal-black);
+            font-weight: var(--font-weight-black);
+            border-bottom: none;
             margin-bottom: -3px;
-            border-radius: var(--radius-md) var(--radius-md) 0 0;
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
         }
 
         .category-tab:hover:not(.active) {
-            background: var(--clay-lavender);
-            color: var(--clay-text-primary);
+            background: var(--brutal-yellow);
         }
 
         .category-tab.active {
-            color: var(--clay-text-on-color);
-            background: var(--clay-savings);
-            border-bottom-color: var(--clay-savings);
-            box-shadow: var(--shadow-clay-sm);
+            background: var(--brutal-blue);
+            border-bottom: var(--border-thick) solid var(--brutal-blue);
         }
 
         .category-list-item {
@@ -695,36 +616,35 @@
             align-items: center;
             padding: var(--space-4) var(--space-5);
             margin-bottom: var(--space-3);
-            background: var(--clay-bg-surface);
-            border-radius: var(--radius-md);
-            border: 2px solid var(--clay-border-soft);
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: var(--shadow-clay-sm);
+            background: var(--brutal-white);
+            border-radius: var(--radius-sm);
+            border: var(--border-thick) solid var(--brutal-black);
+            box-shadow: var(--shadow-brutal-sm);
         }
 
         .category-list-item:hover {
-            transform: translateX(-8px) scale(1.02);
-            box-shadow: var(--shadow-clay-hover);
+            transform: translate(-4px, -4px);
+            box-shadow: var(--shadow-brutal-hover);
         }
 
         .category-list-item:active {
-            transform: translateX(-4px);
-            box-shadow: var(--shadow-clay-pressed);
+            transform: translate(0, 0);
+            box-shadow: var(--shadow-brutal-pressed);
         }
 
         .category-badge-custom {
             display: inline-block;
             padding: var(--space-1) var(--space-2);
-            background: var(--clay-savings);
-            color: var(--clay-text-on-color);
+            background: var(--brutal-blue);
+            color: var(--brutal-black);
             border-radius: var(--radius-sm);
             font-size: var(--text-xs);
-            font-weight: var(--font-weight-medium);
+            font-weight: var(--font-weight-black);
             margin-right: var(--space-2);
-            box-shadow: var(--shadow-inner-sm);
+            border: var(--border-thin) solid var(--brutal-black);
         }
-        
-        /* ============ CLAY LOGIN SCREEN ============ */
+
+        /* ============ BRUTALIST LOGIN SCREEN ============ */
         .login-container {
             min-height: 100vh;
             display: flex;
@@ -734,38 +654,38 @@
             position: relative;
         }
 
-        /* ============ CLAY USER BADGE ============ */
+        /* ============ BRUTALIST USER BADGE ============ */
         .user-badge {
             display: inline-flex;
             align-items: center;
             gap: var(--space-2);
             padding: var(--space-2) var(--space-5);
-            background: var(--clay-bg-surface);
-            border-radius: var(--radius-lg);
-            border: 2px solid var(--clay-border-soft);
+            background: var(--brutal-white);
+            border-radius: var(--radius-sm);
+            border: var(--border-thick) solid var(--brutal-black);
             font-size: var(--text-sm);
-            font-weight: var(--font-weight-medium);
-            box-shadow: var(--shadow-clay-sm);
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            color: var(--clay-text-primary);
+            font-weight: var(--font-weight-black);
+            box-shadow: var(--shadow-brutal-sm);
+            color: var(--brutal-black);
         }
 
         .user-badge:hover {
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: var(--shadow-clay-hover);
+            transform: translate(-2px, -2px);
+            box-shadow: var(--shadow-brutal-md);
+            background: var(--brutal-cyan);
         }
 
         .user-badge:active {
-            transform: scale(1);
-            box-shadow: var(--shadow-clay-pressed);
+            transform: translate(0, 0);
+            box-shadow: var(--shadow-brutal-pressed);
         }
 
-        /* ============ CLAY TRANSACTION TABS ============ */
+        /* ============ BRUTALIST TRANSACTION TABS ============ */
         .transaction-tabs {
             display: flex;
             gap: var(--space-2);
             margin-bottom: var(--space-4);
-            border-bottom: 3px solid var(--clay-lavender);
+            border-bottom: var(--border-thick) solid var(--brutal-black);
             overflow-x: auto;
             padding-bottom: var(--space-2);
         }
@@ -773,27 +693,23 @@
         .transaction-tab {
             padding: var(--space-3) var(--space-6);
             cursor: pointer;
-            border: none;
-            background: transparent;
-            color: var(--clay-text-secondary);
-            font-weight: var(--font-weight-medium);
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            border-bottom: 3px solid transparent;
+            border: var(--border-thin) solid var(--brutal-black);
+            background: var(--brutal-white);
+            color: var(--brutal-black);
+            font-weight: var(--font-weight-black);
+            border-bottom: none;
             margin-bottom: -3px;
             white-space: nowrap;
-            border-radius: var(--radius-md) var(--radius-md) 0 0;
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
         }
 
         .transaction-tab:hover:not(.active) {
-            background: var(--clay-lavender);
-            color: var(--clay-text-primary);
+            background: var(--brutal-yellow);
         }
 
         .transaction-tab.active {
-            color: var(--clay-text-on-color);
-            background: var(--clay-savings);
-            border-bottom-color: var(--clay-savings);
-            box-shadow: var(--shadow-clay-sm);
+            background: var(--brutal-blue);
+            border-bottom: var(--border-thick) solid var(--brutal-blue);
         }
 
         .transaction-category-content {
@@ -802,31 +718,33 @@
 
         .transaction-category-content.active {
             display: block;
-            animation: fadeIn 0.4s ease;
+            animation: fadeIn 0.2s steps(3, end);
         }
         
-        /* ============ CLAY BUTTON STYLES (INTENSE) ============ */
+        /* ============ BRUTALIST BUTTON STYLES ============ */
         button {
-            background: var(--clay-bg-surface);
-            border: 3px solid var(--clay-border-soft);
-            border-radius: var(--radius-md);
+            background: var(--brutal-white);
+            border: var(--border-thick) solid var(--brutal-black);
+            border-radius: var(--radius-sm);
             padding: var(--space-3) var(--space-5);
-            font-weight: var(--font-weight-bold);
+            font-weight: var(--font-weight-black);
             font-family: var(--font-primary);
-            color: var(--clay-text-primary);
+            color: var(--brutal-black);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: var(--shadow-clay-md);
+            box-shadow: var(--shadow-brutal-md);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         button:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: var(--shadow-clay-hover);
+            transform: translate(-4px, -4px);
+            box-shadow: var(--shadow-brutal-hover);
+            background: var(--brutal-yellow);
         }
 
         button:active {
-            transform: translateY(1px) scale(0.98);
-            box-shadow: var(--shadow-clay-pressed);
+            transform: translate(0, 0);
+            box-shadow: var(--shadow-brutal-pressed);
         }
 
         button:disabled {
@@ -835,47 +753,46 @@
             transform: none;
         }
 
-        /* ============ CLAY INPUT/SELECT/TEXTAREA STYLES ============ */
+        /* ============ BRUTALIST INPUT/SELECT/TEXTAREA STYLES ============ */
         input, select, textarea {
-            background: var(--clay-bg-surface);
-            border: 2px solid var(--clay-border-soft);
-            border-radius: var(--radius-md);
+            background: var(--brutal-white);
+            border: var(--border-thick) solid var(--brutal-black);
+            border-radius: var(--radius-sm);
             padding: var(--space-3) var(--space-4);
             font-family: var(--font-primary);
             font-size: var(--text-base);
-            color: var(--clay-text-primary);
-            box-shadow: var(--shadow-inner-sm);
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            color: var(--brutal-black);
+            font-weight: var(--font-weight-bold);
         }
 
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: var(--clay-savings);
-            box-shadow: var(--shadow-inner-md),
-                        0 0 0 4px rgba(184, 212, 255, 0.3);
-            transform: scale(1.01);
+            border-color: var(--brutal-black);
+            box-shadow: var(--shadow-brutal-md);
+            background: var(--brutal-cyan);
         }
 
         input::placeholder, textarea::placeholder {
-            color: var(--clay-text-tertiary);
+            color: var(--brutal-black);
+            opacity: 0.5;
         }
 
-        /* ============ CLAY ROUNDED CORNERS UTILITIES ============ */
+        /* ============ BRUTALIST ROUNDED CORNERS UTILITIES ============ */
         .rounded-2xl {
-            border-radius: var(--radius-2xl) !important;
+            border-radius: var(--radius-lg) !important;
         }
 
         .rounded-xl {
-            border-radius: var(--radius-xl) !important;
+            border-radius: var(--radius-lg) !important;
         }
 
         .rounded-lg {
             border-radius: var(--radius-lg) !important;
         }
 
-        /* ============ CLAY SHADOW UTILITY ============ */
+        /* ============ BRUTALIST SHADOW UTILITY ============ */
         .shadow-clay {
-            box-shadow: var(--shadow-clay-md);
+            box-shadow: var(--shadow-brutal-md);
         }
 
         /* ============ FORM CONTAINER ============ */
@@ -883,46 +800,26 @@
             position: relative;
         }
 
-        /* ============ TYPOGRAPHY SHADOWS FOR DEPTH ============ */
+        /* ============ BRUTALIST TYPOGRAPHY ============ */
         h1, h2, h3, .font-bold {
-            text-shadow: 0 2px 4px rgba(209, 196, 233, 0.1);
-            font-weight: var(--font-weight-bold);
+            font-weight: var(--font-weight-black);
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
         }
 
         h1 {
             font-size: var(--text-3xl);
-            color: var(--clay-text-primary);
+            color: var(--brutal-black);
         }
 
         h2 {
             font-size: var(--text-2xl);
-            color: var(--clay-text-primary);
+            color: var(--brutal-black);
         }
 
         h3 {
             font-size: var(--text-xl);
-            color: var(--clay-text-primary);
-        }
-
-        /* ============ SHIMMER EFFECT ON CARD HOVER ============ */
-        .card-hover::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                120deg,
-                transparent,
-                rgba(232, 228, 243, 0.4),
-                transparent
-            );
-            transform: translateX(-100%);
-            transition: transform 0.6s ease;
-            pointer-events: none;
-            border-radius: inherit;
-        }
-
-        .card-hover:hover::after {
-            transform: translateX(100%);
+            color: var(--brutal-black);
         }
 
         /* ============ RESPONSIVE STYLES ============ */
@@ -956,7 +853,7 @@
             }
 
             .card-hover:hover {
-                box-shadow: var(--shadow-clay-hover);
+                box-shadow: var(--shadow-brutal-hover);
             }
         }
     </style>
@@ -3321,19 +3218,31 @@
                         {
                             label: 'יחס נזילות',
                             data: liquidityData,
-                            borderColor: 'rgb(184, 212, 255)',  // Clay savings blue
-                            backgroundColor: 'rgba(184, 212, 255, 0.3)',
-                            tension: 0.4,
-                            fill: true,
+                            borderColor: '#0066FF',
+                            backgroundColor: 'transparent',
+                            tension: 0,
+                            fill: false,
+                            borderWidth: 5,
+                            pointBackgroundColor: '#0066FF',
+                            pointBorderColor: '#000000',
+                            pointBorderWidth: 3,
+                            pointRadius: 6,
+                            pointStyle: 'rect',
                             yAxisID: 'y'
                         },
                         {
                             label: 'יחס מינוף',
                             data: leverageData,
-                            borderColor: 'rgb(255, 184, 184)',  // Clay expense coral
-                            backgroundColor: 'rgba(255, 184, 184, 0.3)',
-                            tension: 0.4,
-                            fill: true,
+                            borderColor: '#FF0033',
+                            backgroundColor: 'transparent',
+                            tension: 0,
+                            fill: false,
+                            borderWidth: 5,
+                            pointBackgroundColor: '#FF0033',
+                            pointBorderColor: '#000000',
+                            pointBorderWidth: 3,
+                            pointRadius: 6,
+                            pointStyle: 'rect',
                             yAxisID: 'y1'
                         }
                     ]
@@ -3345,14 +3254,18 @@
                         legend: {
                             position: 'top',
                             labels: {
-                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-primary'),
-                                font: { size: 11, weight: '500' }
+                                color: '#000000',
+                                font: { size: 12, weight: '900', family: 'Inter' }
                             }
                         },
                         tooltip: {
-                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            backgroundColor: '#FFCC00',
+                            borderColor: '#000000',
+                            borderWidth: 3,
                             padding: 10,
-                            cornerRadius: 6
+                            cornerRadius: 0,
+                            titleColor: '#000000',
+                            bodyColor: '#000000'
                         }
                     },
                     scales: {
@@ -3360,23 +3273,24 @@
                             type: 'linear',
                             display: true,
                             position: 'right',
-                            title: { display: true, text: 'נזילות', color: 'rgb(59, 130, 246)' },
-                            ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary') },
-                            grid: { color: getComputedStyle(document.documentElement).getPropertyValue('--border-color') }
+                            title: { display: true, text: 'נזילות', color: '#0066FF', font: { weight: '900', family: 'Inter' } },
+                            ticks: { color: '#000000', font: { weight: '700', family: 'Inter' } },
+                            grid: { color: '#000000', lineWidth: 2 }
                         },
                         y1: {
                             type: 'linear',
                             display: true,
                             position: 'left',
-                            title: { display: true, text: 'מינוף', color: 'rgb(239, 68, 68)' },
-                            ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary') },
+                            title: { display: true, text: 'מינוף', color: '#FF0033', font: { weight: '900', family: 'Inter' } },
+                            ticks: { color: '#000000', font: { weight: '700', family: 'Inter' } },
                             grid: { drawOnChartArea: false }
                         },
                         x: {
-                            ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary') },
-                            grid: { display: false }
+                            ticks: { color: '#000000', font: { weight: '700', family: 'Inter' } },
+                            grid: { color: '#000000', lineWidth: 2 }
                         }
-                    }
+                    },
+                    animation: { duration: 200 }
                 }
             });
             
@@ -3392,18 +3306,30 @@
                         {
                             label: 'יחס חיסכון (%)',
                             data: savingsRatioData,
-                            borderColor: 'rgb(168, 230, 207)',  // Clay income green
-                            backgroundColor: 'rgba(168, 230, 207, 0.3)',
-                            tension: 0.4,
-                            fill: true
+                            borderColor: '#00FF66',
+                            backgroundColor: 'transparent',
+                            tension: 0,
+                            fill: false,
+                            borderWidth: 5,
+                            pointBackgroundColor: '#00FF66',
+                            pointBorderColor: '#000000',
+                            pointBorderWidth: 3,
+                            pointRadius: 6,
+                            pointStyle: 'rect'
                         },
                         {
                             label: 'רווחיות (%)',
                             data: profitabilityData,
-                            borderColor: 'rgb(212, 197, 249)',  // Clay asset purple
-                            backgroundColor: 'rgba(212, 197, 249, 0.3)',
-                            tension: 0.4,
-                            fill: true
+                            borderColor: '#FF00FF',
+                            backgroundColor: 'transparent',
+                            tension: 0,
+                            fill: false,
+                            borderWidth: 5,
+                            pointBackgroundColor: '#FF00FF',
+                            pointBorderColor: '#000000',
+                            pointBorderWidth: 3,
+                            pointRadius: 6,
+                            pointStyle: 'rect'
                         }
                     ]
                 },
@@ -3414,14 +3340,18 @@
                         legend: {
                             position: 'top',
                             labels: {
-                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-primary'),
-                                font: { size: 11, weight: '500' }
+                                color: '#000000',
+                                font: { size: 12, weight: '900', family: 'Inter' }
                             }
                         },
                         tooltip: {
-                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            backgroundColor: '#FFCC00',
+                            borderColor: '#000000',
+                            borderWidth: 3,
                             padding: 10,
-                            cornerRadius: 6,
+                            cornerRadius: 0,
+                            titleColor: '#000000',
+                            bodyColor: '#000000',
                             callbacks: {
                                 label: function(context) {
                                     return context.dataset.label + ': ' + context.parsed.y.toFixed(1) + '%';
@@ -3433,16 +3363,18 @@
                         y: {
                             beginAtZero: true,
                             ticks: {
-                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary'),
+                                color: '#000000',
+                                font: { weight: '700', family: 'Inter' },
                                 callback: function(value) { return value + '%'; }
                             },
-                            grid: { color: getComputedStyle(document.documentElement).getPropertyValue('--border-color') }
+                            grid: { color: '#000000', lineWidth: 2, borderWidth: 3, borderColor: '#000000' }
                         },
                         x: {
-                            ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary') },
-                            grid: { display: false }
+                            ticks: { color: '#000000', font: { weight: '700', family: 'Inter' } },
+                            grid: { color: '#000000', lineWidth: 2, borderWidth: 3, borderColor: '#000000' }
                         }
-                    }
+                    },
+                    animation: { duration: 200 }
                 }
             });
         }
@@ -3617,30 +3549,28 @@
             }
             
             const normalizedPercent = Math.min(percent / 20 * 100, 100);
-            
-            const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 200);
+
+            let gaugeColor;
             if (percent >= 20) {
-                gradient.addColorStop(0, '#10b981');
-                gradient.addColorStop(1, '#059669');
+                gaugeColor = '#00FF66';
             } else if (percent >= 10) {
-                gradient.addColorStop(0, '#f59e0b');
-                gradient.addColorStop(1, '#d97706');
+                gaugeColor = '#FFCC00';
             } else {
-                gradient.addColorStop(0, '#ef4444');
-                gradient.addColorStop(1, '#dc2626');
+                gaugeColor = '#FF0033';
             }
-            
+
             charts.gauge = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     datasets: [{
                         data: [normalizedPercent, 100 - normalizedPercent],
                         backgroundColor: [
-                            gradient,
-                            'rgba(200, 200, 200, 0.15)'
+                            gaugeColor,
+                            '#CCCCCC'
                         ],
-                        borderWidth: 0,
-                        borderRadius: 8
+                        borderWidth: 5,
+                        borderColor: '#000000',
+                        borderRadius: 0
                     }]
                 },
                 options: {
@@ -3652,10 +3582,9 @@
                         tooltip: { enabled: false }
                     },
                     animation: {
-                        animateRotate: true,
-                        animateScale: true,
-                        duration: 1200,
-                        easing: 'easeInOutQuart'
+                        animateRotate: false,
+                        animateScale: false,
+                        duration: 200
                     }
                 }
             });
@@ -3676,20 +3605,20 @@
                 charts.expense.destroy();
             }
             
-            // INTENSE Claymorphism vibrant pastel colors
+            // BRUTALIST solid saturated colors - NO transparency
             const modernColors = [
-                'rgba(255, 160, 160, 0.95)',  // Richer coral (expense)
-                'rgba(255, 217, 196, 0.95)',  // Stronger peach
-                'rgba(255, 243, 214, 0.95)',  // Richer cream
-                'rgba(192, 240, 209, 0.95)',  // Brighter mint
-                'rgba(143, 224, 184, 0.95)',  // Vibrant income green
-                'rgba(160, 232, 214, 0.95)',  // Bright teal
-                'rgba(200, 233, 255, 0.95)',  // Brighter sky blue
-                'rgba(160, 196, 255, 0.95)',  // Deeper savings blue
-                'rgba(196, 176, 249, 0.95)',  // Richer purple
-                'rgba(221, 214, 243, 0.95)',  /* Vibrant lavender */
-                'rgba(255, 209, 220, 0.95)',  // Stronger blush pink
-                'rgba(255, 160, 196, 0.95)'   // Vibrant rose
+                '#FF0033',  // Brutal red (expenses)
+                '#FFCC00',  // Brutal yellow
+                '#FF00FF',  // Brutal magenta
+                '#00FF66',  // Brutal green
+                '#0066FF',  // Brutal blue
+                '#00FFFF',  // Brutal cyan
+                '#FF0033',  // Brutal red
+                '#FFCC00',  // Brutal yellow
+                '#FF00FF',  // Brutal magenta
+                '#00FF66',  // Brutal green
+                '#0066FF',  // Brutal blue
+                '#00FFFF'   // Brutal cyan
             ];
             
             charts.expense = new Chart(ctx, {
@@ -3699,10 +3628,10 @@
                     datasets: [{
                         data: Object.values(categoryTotals),
                         backgroundColor: modernColors,
-                        borderWidth: 2,
-                        borderColor: getComputedStyle(document.documentElement).getPropertyValue('--bg-secondary'),
-                        hoverOffset: 12,
-                        borderRadius: 4
+                        borderWidth: 5,
+                        borderColor: '#000000',
+                        hoverOffset: 8,
+                        borderRadius: 0
                     }]
                 },
                 options: {
@@ -3712,19 +3641,23 @@
                         legend: {
                             position: 'bottom',
                             labels: {
-                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-primary'),
-                                font: { size: 11, weight: '500' },
+                                color: '#000000',
+                                font: { size: 12, weight: '900', family: 'Inter' },
                                 padding: 12,
                                 usePointStyle: true,
-                                pointStyle: 'circle'
+                                pointStyle: 'rect'
                             }
                         },
                         tooltip: {
-                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            backgroundColor: '#FFCC00',
+                            borderColor: '#000000',
+                            borderWidth: 3,
                             padding: 12,
-                            cornerRadius: 8,
-                            titleFont: { size: 13, weight: 'bold' },
-                            bodyFont: { size: 12 },
+                            cornerRadius: 0,
+                            titleColor: '#000000',
+                            bodyColor: '#000000',
+                            titleFont: { size: 14, weight: '900', family: 'Inter' },
+                            bodyFont: { size: 12, weight: '700', family: 'Inter' },
                             callbacks: {
                                 label: function(context) {
                                     const label = context.label || '';
@@ -3737,10 +3670,9 @@
                         }
                     },
                     animation: {
-                        animateRotate: true,
-                        animateScale: true,
-                        duration: 1000,
-                        easing: 'easeInOutQuart'
+                        animateRotate: false,
+                        animateScale: false,
+                        duration: 200
                     },
                     onClick: (event, activeElements) => {
                         if (activeElements.length > 0) {
@@ -3767,11 +3699,10 @@
             }
             
             const incomeColors = [
-                'rgba(16, 185, 129, 0.9)', 'rgba(20, 184, 166, 0.9)', 'rgba(6, 182, 212, 0.9)',
-                'rgba(59, 130, 246, 0.9)', 'rgba(99, 102, 241, 0.9)', 'rgba(139, 92, 246, 0.9)',
-                'rgba(168, 85, 247, 0.9)', 'rgba(217, 70, 239, 0.9)'
+                '#00FF66', '#0066FF', '#00FFFF', '#FFCC00',
+                '#FF00FF', '#FF0033', '#00FF66', '#0066FF'
             ];
-            
+
             charts.income = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
@@ -3779,10 +3710,10 @@
                     datasets: [{
                         data: Object.values(categoryTotals),
                         backgroundColor: incomeColors,
-                        borderWidth: 2,
-                        borderColor: getComputedStyle(document.documentElement).getPropertyValue('--bg-secondary'),
-                        hoverOffset: 12,
-                        borderRadius: 4
+                        borderWidth: 5,
+                        borderColor: '#000000',
+                        hoverOffset: 8,
+                        borderRadius: 0
                     }]
                 },
                 options: {
@@ -3792,19 +3723,23 @@
                         legend: {
                             position: 'bottom',
                             labels: {
-                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-primary'),
-                                font: { size: 11, weight: '500' },
+                                color: '#000000',
+                                font: { size: 12, weight: '900', family: 'Inter' },
                                 padding: 12,
                                 usePointStyle: true,
-                                pointStyle: 'circle'
+                                pointStyle: 'rect'
                             }
                         },
                         tooltip: {
-                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            backgroundColor: '#00FF66',
+                            borderColor: '#000000',
+                            borderWidth: 3,
                             padding: 12,
-                            cornerRadius: 8,
-                            titleFont: { size: 13, weight: 'bold' },
-                            bodyFont: { size: 12 },
+                            cornerRadius: 0,
+                            titleColor: '#000000',
+                            bodyColor: '#000000',
+                            titleFont: { size: 14, weight: '900', family: 'Inter' },
+                            bodyFont: { size: 12, weight: '700', family: 'Inter' },
                             callbacks: {
                                 label: function(context) {
                                     const label = context.label || '';
@@ -3817,10 +3752,9 @@
                         }
                     },
                     animation: {
-                        animateRotate: true,
-                        animateScale: true,
-                        duration: 1000,
-                        easing: 'easeInOutQuart'
+                        animateRotate: false,
+                        animateScale: false,
+                        duration: 200
                     },
                     onClick: (event, activeElements) => {
                         if (activeElements.length > 0) {
@@ -3856,15 +3790,6 @@
                 charts.trend.destroy();
             }
             
-            const ctxGradient = ctx.getContext('2d');
-            const incomeGradient = ctxGradient.createLinearGradient(0, 0, 0, 300);
-            incomeGradient.addColorStop(0, 'rgba(16, 185, 129, 0.3)');
-            incomeGradient.addColorStop(1, 'rgba(16, 185, 129, 0.0)');
-            
-            const expenseGradient = ctxGradient.createLinearGradient(0, 0, 0, 300);
-            expenseGradient.addColorStop(0, 'rgba(239, 68, 68, 0.3)');
-            expenseGradient.addColorStop(1, 'rgba(239, 68, 68, 0.0)');
-            
             charts.trend = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -3873,30 +3798,32 @@
                         {
                             label: 'הכנסות',
                             data: incomeData,
-                            borderColor: 'rgb(16, 185, 129)',
-                            backgroundColor: incomeGradient,
-                            tension: 0.4,
-                            fill: true,
-                            borderWidth: 3,
-                            pointBackgroundColor: 'rgb(16, 185, 129)',
-                            pointBorderColor: '#fff',
-                            pointBorderWidth: 2,
-                            pointRadius: 5,
-                            pointHoverRadius: 7
+                            borderColor: '#00FF66',
+                            backgroundColor: 'transparent',
+                            tension: 0,
+                            fill: false,
+                            borderWidth: 5,
+                            pointBackgroundColor: '#00FF66',
+                            pointBorderColor: '#000000',
+                            pointBorderWidth: 3,
+                            pointRadius: 8,
+                            pointHoverRadius: 10,
+                            pointStyle: 'rect'
                         },
                         {
                             label: 'הוצאות',
                             data: expenseData,
-                            borderColor: 'rgb(239, 68, 68)',
-                            backgroundColor: expenseGradient,
-                            tension: 0.4,
-                            fill: true,
-                            borderWidth: 3,
-                            pointBackgroundColor: 'rgb(239, 68, 68)',
-                            pointBorderColor: '#fff',
-                            pointBorderWidth: 2,
-                            pointRadius: 5,
-                            pointHoverRadius: 7
+                            borderColor: '#FF0033',
+                            backgroundColor: 'transparent',
+                            tension: 0,
+                            fill: false,
+                            borderWidth: 5,
+                            pointBackgroundColor: '#FF0033',
+                            pointBorderColor: '#000000',
+                            pointBorderWidth: 3,
+                            pointRadius: 8,
+                            pointHoverRadius: 10,
+                            pointStyle: 'rect'
                         }
                     ]
                 },
@@ -3906,19 +3833,23 @@
                         legend: {
                             position: 'top',
                             labels: {
-                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-primary'),
-                                font: { size: 12, weight: '500' },
+                                color: '#000000',
+                                font: { size: 14, weight: '900', family: 'Inter' },
                                 padding: 15,
                                 usePointStyle: true,
-                                pointStyle: 'circle'
+                                pointStyle: 'rect'
                             }
                         },
                         tooltip: {
-                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            backgroundColor: '#FFCC00',
+                            borderColor: '#000000',
+                            borderWidth: 3,
                             padding: 12,
-                            cornerRadius: 8,
-                            titleFont: { size: 13, weight: 'bold' },
-                            bodyFont: { size: 12 },
+                            cornerRadius: 0,
+                            titleColor: '#000000',
+                            bodyColor: '#000000',
+                            titleFont: { size: 14, weight: '900', family: 'Inter' },
+                            bodyFont: { size: 12, weight: '700', family: 'Inter' },
                             callbacks: {
                                 label: function(context) {
                                     return context.dataset.label + ': ' + formatCurrency(context.parsed.y);
@@ -3930,30 +3861,35 @@
                         y: {
                             beginAtZero: true,
                             ticks: {
-                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary'),
-                                font: { size: 11 },
+                                color: '#000000',
+                                font: { size: 12, weight: '700', family: 'Inter' },
                                 callback: function(value) {
                                     return '₪' + value.toLocaleString('he-IL');
                                 }
                             },
                             grid: {
-                                color: getComputedStyle(document.documentElement).getPropertyValue('--border-color'),
-                                drawBorder: false
+                                color: '#000000',
+                                lineWidth: 2,
+                                drawBorder: true,
+                                borderWidth: 3,
+                                borderColor: '#000000'
                             }
                         },
                         x: {
                             ticks: {
-                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary'),
-                                font: { size: 11 }
+                                color: '#000000',
+                                font: { size: 12, weight: '700', family: 'Inter' }
                             },
                             grid: {
-                                display: false
+                                color: '#000000',
+                                lineWidth: 2,
+                                borderWidth: 3,
+                                borderColor: '#000000'
                             }
                         }
                     },
                     animation: {
-                        duration: 1200,
-                        easing: 'easeInOutQuart'
+                        duration: 200
                     }
                 }
             });
@@ -3983,11 +3919,6 @@
                 charts.netWorth.destroy();
             }
             
-            const ctxGradient = ctx.getContext('2d');
-            const gradient = ctxGradient.createLinearGradient(0, 0, 0, 300);
-            gradient.addColorStop(0, 'rgba(20, 184, 166, 0.4)');
-            gradient.addColorStop(1, 'rgba(20, 184, 166, 0.0)');
-            
             charts.netWorth = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -3995,16 +3926,17 @@
                     datasets: [{
                         label: 'שווי נקי',
                         data: netWorthData,
-                        borderColor: 'rgb(20, 184, 166)',
-                        backgroundColor: gradient,
-                        tension: 0.4,
-                        fill: true,
-                        borderWidth: 3,
-                        pointBackgroundColor: 'rgb(20, 184, 166)',
-                        pointBorderColor: '#fff',
-                        pointBorderWidth: 2,
-                        pointRadius: 5,
-                        pointHoverRadius: 7
+                        borderColor: '#00FFFF',
+                        backgroundColor: 'transparent',
+                        tension: 0,
+                        fill: false,
+                        borderWidth: 5,
+                        pointBackgroundColor: '#00FFFF',
+                        pointBorderColor: '#000000',
+                        pointBorderWidth: 3,
+                        pointRadius: 8,
+                        pointHoverRadius: 10,
+                        pointStyle: 'rect'
                     }]
                 },
                 options: {
@@ -4013,19 +3945,23 @@
                         legend: {
                             position: 'top',
                             labels: {
-                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-primary'),
-                                font: { size: 12, weight: '500' },
+                                color: '#000000',
+                                font: { size: 14, weight: '900', family: 'Inter' },
                                 padding: 15,
                                 usePointStyle: true,
-                                pointStyle: 'circle'
+                                pointStyle: 'rect'
                             }
                         },
                         tooltip: {
-                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            backgroundColor: '#00FFFF',
+                            borderColor: '#000000',
+                            borderWidth: 3,
                             padding: 12,
-                            cornerRadius: 8,
-                            titleFont: { size: 13, weight: 'bold' },
-                            bodyFont: { size: 12 },
+                            cornerRadius: 0,
+                            titleColor: '#000000',
+                            bodyColor: '#000000',
+                            titleFont: { size: 14, weight: '900', family: 'Inter' },
+                            bodyFont: { size: 12, weight: '700', family: 'Inter' },
                             callbacks: {
                                 label: function(context) {
                                     return context.dataset.label + ': ' + formatCurrency(context.parsed.y);
@@ -4037,30 +3973,35 @@
                         y: {
                             beginAtZero: true,
                             ticks: {
-                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary'),
-                                font: { size: 11 },
+                                color: '#000000',
+                                font: { size: 12, weight: '700', family: 'Inter' },
                                 callback: function(value) {
                                     return '₪' + value.toLocaleString('he-IL');
                                 }
                             },
                             grid: {
-                                color: getComputedStyle(document.documentElement).getPropertyValue('--border-color'),
-                                drawBorder: false
+                                color: '#000000',
+                                lineWidth: 2,
+                                drawBorder: true,
+                                borderWidth: 3,
+                                borderColor: '#000000'
                             }
                         },
                         x: {
                             ticks: {
-                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary'),
-                                font: { size: 11 }
+                                color: '#000000',
+                                font: { size: 12, weight: '700', family: 'Inter' }
                             },
                             grid: {
-                                display: false
+                                color: '#000000',
+                                lineWidth: 2,
+                                borderWidth: 3,
+                                borderColor: '#000000'
                             }
                         }
                     },
                     animation: {
-                        duration: 1200,
-                        easing: 'easeInOutQuart'
+                        duration: 200
                     }
                 }
             });
