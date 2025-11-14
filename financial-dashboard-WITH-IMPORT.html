@@ -732,14 +732,12 @@
             color: var(--brutal-black);
             cursor: pointer;
             box-shadow: var(--shadow-brutal-md);
-            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         button:hover {
             transform: translate(-4px, -4px);
             box-shadow: var(--shadow-brutal-hover);
-            background: var(--brutal-yellow);
         }
 
         button:active {
@@ -751,6 +749,25 @@
             opacity: 0.5;
             cursor: not-allowed;
             transform: none;
+        }
+
+        /* Buttons with inline background colors should have white text */
+        button[style*="background: var(--savings-color)"],
+        button[style*="background: var(--networth-color)"],
+        button[style*="background: var(--asset-color)"],
+        button[style*="background: var(--income-color)"],
+        button[style*="background: var(--expense-color)"] {
+            color: white !important;
+        }
+
+        /* Date navigation buttons */
+        .date-nav-btn {
+            background: var(--brutal-white);
+            color: var(--brutal-black);
+        }
+
+        .date-nav-btn:hover {
+            background: var(--brutal-yellow);
         }
 
         /* ============ BRUTALIST INPUT/SELECT/TEXTAREA STYLES ============ */
@@ -803,7 +820,6 @@
         /* ============ BRUTALIST TYPOGRAPHY ============ */
         h1, h2, h3, .font-bold {
             font-weight: var(--font-weight-black);
-            text-transform: uppercase;
             letter-spacing: -0.5px;
         }
 
@@ -994,22 +1010,22 @@
                             <span>⚙️</span>
                         </button>
                         
-                        <button onclick="showFinancialRatiosModal()" class="px-4 py-2 rounded-lg text-white transition hover:opacity-90"
-                                style="background: var(--networth-color);" title="יחסים פיננסיים">📈 יחסים פיננסיים</button>
+                        <button onclick="showFinancialRatiosModal()" class="px-4 py-2 rounded-lg transition hover:opacity-90"
+                                style="background: var(--networth-color); color: white;" title="יחסים פיננסיים">📈 יחסים פיננסיים</button>
 
-                        <button onclick="exportToExcel()" class="px-4 py-2 rounded-lg text-white transition hover:opacity-90"
-                                style="background: var(--savings-color);" title="ייצוא לאקסל">📊 ייצוא לאקסל</button>
-                        
-                        <button onclick="showImportModal()" class="px-4 py-2 rounded-lg text-white transition hover:opacity-90" 
-                                style="background: var(--asset-color);" title="ייבוא תנועות מאקסל">
+                        <button onclick="exportToExcel()" class="px-4 py-2 rounded-lg transition hover:opacity-90"
+                                style="background: var(--savings-color); color: white;" title="ייצוא לאקסל">📊 ייצוא לאקסל</button>
+
+                        <button onclick="showImportModal()" class="px-4 py-2 rounded-lg transition hover:opacity-90"
+                                style="background: var(--asset-color); color: white;" title="ייבוא תנועות מאקסל">
                             📥 ייבוא מאקסל
                         </button>
-                        
-                        <button onclick="exportUserData()" class="px-4 py-2 rounded-lg text-white transition hover:opacity-90" 
-                                style="background: var(--asset-color);" title="ייצוא נתונים">💾 ייצוא נתונים</button>
-                        
-                        <button onclick="importUserData()" class="px-4 py-2 rounded-lg text-white transition hover:opacity-90" 
-                                style="background: var(--networth-color);" title="ייבוא נתונים">📥 ייבוא</button>
+
+                        <button onclick="exportUserData()" class="px-4 py-2 rounded-lg transition hover:opacity-90"
+                                style="background: var(--asset-color); color: white;" title="ייצוא נתונים">💾 ייצוא נתונים</button>
+
+                        <button onclick="importUserData()" class="px-4 py-2 rounded-lg transition hover:opacity-90"
+                                style="background: var(--networth-color); color: white;" title="ייבוא נתונים">📥 ייבוא</button>
                         
                         <button onclick="AUTH_SYSTEM.logout()" class="p-2 rounded-lg transition text-xl" title="התנתק">
                             <span>🚪</span>
