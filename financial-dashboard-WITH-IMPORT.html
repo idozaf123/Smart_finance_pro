@@ -733,10 +733,12 @@
             cursor: pointer;
             box-shadow: var(--shadow-brutal-md);
             letter-spacing: 0.5px;
+            position: relative;
+            transition: none;
         }
 
         button:hover {
-            transform: translate(-4px, -4px);
+            transform: translate(-2px, -2px);
             box-shadow: var(--shadow-brutal-hover);
         }
 
@@ -973,11 +975,11 @@
     <!-- Main Application (Hidden until login) -->
     <div id="mainApp" style="display: none;">
         <!-- Header -->
-        <header class="sticky top-0 z-50" style="background: var(--glass-bg); backdrop-filter: blur(25px) saturate(180%); -webkit-backdrop-filter: blur(25px) saturate(180%); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); border-bottom: var(--glass-border);">
+        <header class="sticky top-0 z-50" style="background: var(--glass-bg); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); border-bottom: var(--glass-border);">
             <div class="container mx-auto px-4 py-4">
                 <div class="flex justify-between items-center">
                     <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-2xl overflow-hidden shadow-lg" style="background: var(--glass-bg); border: var(--glass-border); backdrop-filter: blur(12px) saturate(160%); -webkit-backdrop-filter: blur(12px) saturate(160%);">
+                        <div class="w-12 h-12 rounded-2xl overflow-hidden shadow-lg" style="background: var(--glass-bg); border: var(--glass-border);">
                             <img src="smart-finance-logo.svg" alt="Smart Finance Pro Logo" class="w-full h-full object-cover">
                         </div>
                         <div>
@@ -996,13 +998,13 @@
                         <!-- Extended Date Selector with FLIPPED ARROWS -->
                         <div class="extended-date-selector">
                             <button onclick="navigateMonth(-1)" class="date-nav-btn" title="חודש קודם">▶</button>
-                            <select id="yearSelector" class="px-3 py-2 rounded-lg border" 
-                                    style="background: var(--glass-bg); backdrop-filter: blur(15px) saturate(180%); -webkit-backdrop-filter: blur(15px) saturate(180%); border: var(--glass-border); color: var(--text-primary); border-radius: 15px;"></select>
+                            <select id="yearSelector" class="px-3 py-2 rounded-lg border"
+                                    style="background: white; border: var(--glass-border); color: var(--text-primary);"></select>
                             <select id="monthSelector" class="px-3 py-2 rounded-lg border"
-                                    style="background: var(--glass-bg); backdrop-filter: blur(15px) saturate(180%); -webkit-backdrop-filter: blur(15px) saturate(180%); border: var(--glass-border); color: var(--text-primary); border-radius: 15px;"></select>
+                                    style="background: white; border: var(--glass-border); color: var(--text-primary);"></select>
                             <button onclick="navigateMonth(1)" class="date-nav-btn" title="חודש הבא">◀</button>
-                            <button onclick="goToCurrentMonth()" class="date-nav-btn" 
-                                    style="background: var(--savings-color); color: white;" 
+                            <button onclick="goToCurrentMonth()" class="date-nav-btn"
+                                    style="background: var(--savings-color); color: white;"
                                     title="חזור לחודש נוכחי">📅 היום</button>
                         </div>
                         
