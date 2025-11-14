@@ -232,6 +232,143 @@
             border: none;
         }
 
+        /* Financial health section */
+        .health-score-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-neu-lg);
+            transition: all 0.4s ease;
+        }
+
+        .health-score-circle::after {
+            content: '';
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-neu-inset-sm);
+        }
+
+        .health-score-value {
+            position: relative;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            z-index: 1;
+            text-align: center;
+        }
+
+        .health-grade-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.9rem;
+            border-radius: 999px;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-neu-sm);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .health-summary {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .health-focus-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 14px;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-neu-sm);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .health-progress-wrapper {
+            width: 100%;
+            height: 14px;
+            border-radius: 999px;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-neu-inset-sm);
+            overflow: hidden;
+        }
+
+        .health-progress-bar {
+            height: 100%;
+            width: 0%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--savings-color), var(--asset-color));
+            transition: width 0.6s ease;
+        }
+
+        /* Recurring transactions list */
+        .recurring-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 18px;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-neu-md);
+            transition: all 0.3s ease;
+        }
+
+        .recurring-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-neu-lg);
+        }
+
+        .recurring-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.35rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .recurring-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-neu-inset-sm);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .recurring-amount {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .recurring-direction-income {
+            color: var(--income-color);
+        }
+
+        .recurring-direction-expense {
+            color: var(--expense-color);
+        }
+
+        .recurring-missed {
+            color: var(--warning-color);
+            font-weight: 600;
+        }
+
         /* Neumorphic Modal */
         .modal-backdrop {
             background: rgba(0, 0, 0, 0.3);
@@ -852,6 +989,44 @@
                 <div id="growthAnalysis" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
             </div>
 
+            <!-- Financial Health Score -->
+            <div class="rounded-2xl p-6 mb-8 fade-in" style="background: var(--glass-bg); backdrop-filter: blur(22px) saturate(185%); -webkit-backdrop-filter: blur(22px) saturate(185%); border: var(--glass-border); box-shadow: 0 12px 45px rgba(0, 0, 0, 0.12);">
+                <div class="flex flex-col lg:flex-row gap-6 items-stretch">
+                    <div class="flex flex-col items-center justify-center gap-3">
+                        <div id="financialHealthScoreCircle" class="health-score-circle">
+                            <div class="health-score-value">
+                                <div id="financialHealthScore">0</div>
+                                <div class="text-sm" style="color: var(--text-secondary);">מתוך 100</div>
+                            </div>
+                        </div>
+                        <span id="financialHealthGrade" class="health-grade-badge">-</span>
+                    </div>
+
+                    <div class="flex-1 space-y-5">
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">⚖️ מדד בריאות פיננסית</h3>
+                            <p id="financialHealthSummary" class="health-summary"></p>
+                        </div>
+
+                        <div>
+                            <h4 class="text-sm font-semibold" style="color: var(--text-secondary);">דגשים לפעולה</h4>
+                            <div id="financialFocusList" class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2"></div>
+                        </div>
+
+                        <div>
+                            <h4 class="text-sm font-semibold mb-2" style="color: var(--text-secondary);">התקדמות לעבר יעד החיסכון השנתי</h4>
+                            <div class="health-progress-wrapper">
+                                <div id="financialHealthProgress" class="health-progress-bar"></div>
+                            </div>
+                            <div class="flex justify-between text-xs mt-2" style="color: var(--text-secondary);">
+                                <span>היעד: 20% מסך ההכנסות</span>
+                                <span id="financialHealthProgressLabel">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Charts Row -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
                 <div class="rounded-2xl p-6 fade-in" style="background: var(--glass-bg); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: var(--glass-border); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
@@ -885,6 +1060,21 @@
                 <div class="rounded-2xl p-6 fade-in" style="background: var(--glass-bg); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: var(--glass-border); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
                     <h3 class="text-xl font-bold mb-6">מגמת שווי נקי</h3>
                     <canvas id="netWorthChart"></canvas>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <div class="rounded-2xl p-6 fade-in" style="background: var(--glass-bg); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: var(--glass-border); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
+                    <h3 class="text-xl font-bold mb-6">תחזית תזרים מזומנים</h3>
+                    <canvas id="cashFlowForecastChart" style="min-height: 320px;"></canvas>
+                </div>
+
+                <div class="rounded-2xl p-6 fade-in" style="background: var(--glass-bg); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: var(--glass-border); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold">🔁 תנועות חוזרות</h3>
+                        <span class="text-xs px-3 py-1 rounded-full" style="background: var(--bg-primary); color: var(--text-secondary); box-shadow: var(--shadow-neu-inset-sm);">6 חודשים אחרונים</span>
+                    </div>
+                    <div id="recurringTransactionsList" class="space-y-3"></div>
                 </div>
             </div>
 
@@ -2103,16 +2293,89 @@
         
         function loadTransactions() {
             const stored = loadUserData('transactions');
-            transactions = stored || [];
+            transactions = Array.isArray(stored) ? stored : [];
+            normalizeTransactions();
         }
 
         function saveTransactions() {
             saveUserData('transactions', transactions);
         }
 
+        function getDefaultCategory() {
+            return 'אחר';
+        }
+
+        function getTransactionMonthKey(transaction) {
+            if (transaction.month) {
+                return transaction.month;
+            }
+
+            if (transaction.date) {
+                return transaction.date.slice(0, 7);
+            }
+
+            return null;
+        }
+
+        function normalizeTransactions() {
+            let changed = false;
+
+            transactions = transactions.map(transaction => {
+                if (!transaction) return transaction;
+
+                const normalized = { ...transaction };
+
+                if (normalized.amount !== undefined) {
+                    const parsedAmount = parseFloat(normalized.amount);
+                    if (!isNaN(parsedAmount) && parsedAmount !== normalized.amount) {
+                        normalized.amount = parsedAmount;
+                        changed = true;
+                    }
+                }
+
+                if (!normalized.date && normalized.timestamp) {
+                    const date = new Date(normalized.timestamp);
+                    if (!isNaN(date.getTime())) {
+                        normalized.date = date.toISOString().split('T')[0];
+                        changed = true;
+                    }
+                }
+
+                const monthKey = getTransactionMonthKey(normalized);
+                if (!monthKey && normalized.date) {
+                    normalized.month = normalized.date.slice(0, 7);
+                    changed = true;
+                } else if (!normalized.month && monthKey) {
+                    normalized.month = monthKey;
+                    changed = true;
+                }
+
+                if (!normalized.category) {
+                    normalized.category = getDefaultCategory();
+                    changed = true;
+                }
+
+                return normalized;
+            });
+
+            if (changed) {
+                saveTransactions();
+            }
+        }
+
         function addTransaction(transaction) {
             transaction.id = Date.now();
-            transaction.month = currentMonth;
+            transaction.amount = parseFloat(transaction.amount);
+            if (isNaN(transaction.amount)) {
+                transaction.amount = 0;
+            }
+
+            if (!transaction.date) {
+                transaction.date = new Date().toISOString().split('T')[0];
+            }
+
+            transaction.month = transaction.month || getTransactionMonthKey(transaction) || currentMonth;
+            transaction.category = transaction.category || getDefaultCategory();
             transactions.push(transaction);
             saveTransactions();
             updateDashboard();
@@ -2123,7 +2386,29 @@
         function updateTransaction(id, updates) {
             const index = transactions.findIndex(t => t.id === id);
             if (index !== -1) {
-                transactions[index] = { ...transactions[index], ...updates };
+                const updated = { ...transactions[index], ...updates };
+
+                if (updated.date) {
+                    updated.month = updated.date.slice(0, 7);
+                } else if (!updated.month) {
+                    const derivedMonth = getTransactionMonthKey(updated);
+                    if (derivedMonth) {
+                        updated.month = derivedMonth;
+                    }
+                }
+
+                if (!updated.category) {
+                    updated.category = getDefaultCategory();
+                }
+
+                if (updated.amount !== undefined) {
+                    const parsedAmount = parseFloat(updated.amount);
+                    if (!isNaN(parsedAmount)) {
+                        updated.amount = parsedAmount;
+                    }
+                }
+
+                transactions[index] = updated;
                 saveTransactions();
                 updateDashboard();
                 closeModal();
@@ -2331,17 +2616,18 @@
 
         function handleFormSubmit(e) {
             e.preventDefault();
-            
+
             const id = document.getElementById('transactionId').value;
             const transaction = {
                 type: document.getElementById('transactionType').value,
                 description: document.getElementById('description').value,
                 amount: parseFloat(document.getElementById('amount').value),
                 category: document.getElementById('category').value,
-                date: document.getElementById('date').value,
-                month: currentMonth
+                date: document.getElementById('date').value
             };
-            
+
+            transaction.month = getTransactionMonthKey(transaction) || currentMonth;
+
             if (id) {
                 updateTransaction(parseInt(id), transaction);
             } else {
@@ -2510,12 +2796,16 @@
         ========================================== */
         
         function getMonthTransactions() {
-            return transactions.filter(t => t.month === currentMonth);
+            return transactions.filter(t => getTransactionMonthKey(t) === currentMonth);
+        }
+
+        function getTransactionsByMonth(monthKey) {
+            return transactions.filter(t => getTransactionMonthKey(t) === monthKey);
         }
 
         function calculateTotals() {
             const monthTrans = getMonthTransactions();
-            
+
             const income = monthTrans
                 .filter(t => t.type === 'income')
                 .reduce((sum, t) => sum + parseFloat(t.amount), 0);
@@ -2540,6 +2830,13 @@
             const [year, month] = currentMonth.split('-').map(Number);
             const date = new Date(year, month - 1);
             date.setMonth(date.getMonth() - months);
+            return date.toISOString().slice(0, 7);
+        }
+
+        function getDateMonthsAhead(months) {
+            const [year, month] = currentMonth.split('-').map(Number);
+            const date = new Date(year, month - 1);
+            date.setMonth(date.getMonth() + months);
             return date.toISOString().slice(0, 7);
         }
 
@@ -2668,9 +2965,15 @@
             updateIncomeChart();
             updateTrendChart();
             updateNetWorthChart();
-            
+
+            const financialHealth = evaluateFinancialHealth(totals);
+            renderFinancialHealth(financialHealth);
+
+            updateCashFlowForecastChart();
+            renderRecurringTransactions();
+
             generateInsights();
-            
+
             setTimeout(() => {
                 initializeDragAndDrop();
             }, 100);
@@ -2776,7 +3079,7 @@
             const assets = getCurrentAssets();
             const liabilities = getCurrentLiabilities();
             const totals = calculateTotals();
-            
+
             // Calculate monthly debt payments (expenses in debt categories)
             const debtCategories = ['משכנתא', 'הלוואת רכב', 'הלוואה אישית', 'כרטיס אשראי', 'מסגרת אשראי'];
             const monthlyDebtPayments = getMonthTransactions()
@@ -2795,7 +3098,169 @@
             
             return ratios;
         }
-        
+
+        /* ==========================================
+           FINANCIAL HEALTH SCORE & SUMMARY
+        ========================================== */
+
+        function evaluateFinancialHealth(totals) {
+            const ratios = calculateFinancialRatios();
+            const assets = getCurrentAssets();
+            const liabilities = getCurrentLiabilities();
+            const netWorth = assets - liabilities;
+            const emergencyCoverage = totals.expense > 0
+                ? (assets / Math.max(totals.expense, 1))
+                : (assets > 0 ? 12 : 0);
+
+            const netWorthHistory = [];
+            for (let i = 5; i >= 0; i--) {
+                const monthKey = getDateMonthsAgo(i);
+                const monthData = detailedAssets[monthKey];
+                if (monthData) {
+                    const monthAssets = monthData.assets?.reduce((sum, item) => sum + item.amount, 0) || 0;
+                    const monthLiabilities = monthData.liabilities?.reduce((sum, item) => sum + item.amount, 0) || 0;
+                    netWorthHistory.push(monthAssets - monthLiabilities);
+                } else {
+                    netWorthHistory.push(0);
+                }
+            }
+
+            const netWorthChange = netWorthHistory.length > 1
+                ? netWorthHistory[netWorthHistory.length - 1] - netWorthHistory[0]
+                : 0;
+            const baseNetWorth = netWorthHistory.length > 0
+                ? Math.max(Math.abs(netWorthHistory[0]), 1)
+                : Math.max(Math.abs(netWorth), 1);
+            const netWorthTrendScore = clamp(50 + (netWorthChange / baseNetWorth) * 100, 0, 100);
+
+            const savingsScore = clamp((totals.savingsPercent / 20) * 100, 0, 100);
+            const liquidityScore = clamp((Math.min(ratios.liquidity, 3) / 3) * 100, 0, 100);
+            const debtScore = clamp(100 - (ratios.debtToIncome * 100), 0, 100);
+            const emergencyScore = clamp((Math.min(emergencyCoverage, 9) / 6) * 100, 0, 100);
+
+            const weightedScore =
+                (savingsScore * 0.25) +
+                (debtScore * 0.2) +
+                (liquidityScore * 0.2) +
+                (emergencyScore * 0.15) +
+                (netWorthTrendScore * 0.2);
+
+            const score = Math.round(clamp(weightedScore, 0, 100));
+
+            let grade;
+            if (score >= 85) {
+                grade = { label: 'מצוין', color: 'var(--income-color)' };
+            } else if (score >= 70) {
+                grade = { label: 'חזק', color: 'var(--savings-color)' };
+            } else if (score >= 55) {
+                grade = { label: 'בינוני', color: 'var(--warning-color)' };
+            } else {
+                grade = { label: 'דורש טיפול', color: 'var(--expense-color)' };
+            }
+
+            const summaryParts = [
+                `חיסכון של ${totals.savingsPercent.toFixed(1)}% מההכנסה`,
+                `יחס חוב להכנסה ${(ratios.debtToIncome * 100).toFixed(1)}%`,
+                `כיסוי חירום של ${emergencyCoverage.toFixed(1)} חודשי הוצאות`
+            ];
+
+            const focus = [];
+            if (totals.savingsPercent < 20) {
+                focus.push({
+                    icon: '💡',
+                    text: `הגדל את שיעור החיסכון ב-${(20 - totals.savingsPercent).toFixed(1)}% כדי לעמוד ביעד.`
+                });
+            }
+            if (ratios.debtToIncome > 0.36) {
+                focus.push({
+                    icon: '📉',
+                    text: 'יחס החוב להכנסה גבוה, שקול לצמצם הלוואות או להפחית תשלומים חודשיים.'
+                });
+            }
+            if (ratios.liquidity < 1.2) {
+                focus.push({
+                    icon: '🛡️',
+                    text: 'חזק את הנזילות באמצעות הגדלת רכיב מזומן או קרן חירום.'
+                });
+            }
+            if (emergencyCoverage < 3) {
+                focus.push({
+                    icon: '🚑',
+                    text: 'בנה קרן חירום שתכסה לפחות 3 חודשי הוצאות שוטפות.'
+                });
+            }
+            if (netWorthChange < 0) {
+                focus.push({
+                    icon: '📊',
+                    text: 'השווי הנקי בירידה, בדוק הוצאות חריגות או תפקוד השקעות.'
+                });
+            }
+            if (!focus.length) {
+                focus.push({
+                    icon: '✅',
+                    text: 'מעולה! המשך לשמור על ההרגלים הטובים וחפש הזדמנויות להשקעה.'
+                });
+            }
+
+            return {
+                score,
+                grade,
+                summary: summaryParts.join(' · '),
+                focus,
+                goalProgress: clamp(totals.goalPercent, 0, 150),
+                savingsPercent: totals.savingsPercent,
+                debtToIncome: ratios.debtToIncome,
+                emergencyCoverage,
+                netWorthChange
+            };
+        }
+
+        function renderFinancialHealth(health) {
+            const scoreEl = document.getElementById('financialHealthScore');
+            if (scoreEl) {
+                scoreEl.textContent = health.score;
+            }
+
+            const gradeEl = document.getElementById('financialHealthGrade');
+            if (gradeEl) {
+                gradeEl.textContent = health.grade.label;
+                gradeEl.style.color = health.grade.color;
+            }
+
+            const circleEl = document.getElementById('financialHealthScoreCircle');
+            if (circleEl) {
+                const angle = Math.max(6, health.score * 3.6);
+                circleEl.style.background = `conic-gradient(${health.grade.color} ${angle}deg, var(--bg-tertiary) ${angle}deg)`;
+            }
+
+            const summaryEl = document.getElementById('financialHealthSummary');
+            if (summaryEl) {
+                summaryEl.textContent = health.summary;
+            }
+
+            const focusList = document.getElementById('financialFocusList');
+            if (focusList) {
+                focusList.innerHTML = health.focus.map(item => `
+                    <div class="health-focus-item">
+                        <span>${item.icon}</span>
+                        <span>${item.text}</span>
+                    </div>
+                `).join('');
+            }
+
+            const progressBar = document.getElementById('financialHealthProgress');
+            if (progressBar) {
+                const progressValue = clamp(health.goalProgress, 0, 130);
+                progressBar.style.width = Math.min(progressValue, 100) + '%';
+                progressBar.style.background = `linear-gradient(90deg, ${health.grade.color}, var(--asset-color))`;
+            }
+
+            const progressLabel = document.getElementById('financialHealthProgressLabel');
+            if (progressLabel) {
+                progressLabel.textContent = `${Math.round(clamp(health.goalProgress, 0, 130))}%`;
+            }
+        }
+
         function getRatioStatus(ratio, value) {
             const thresholds = {
                 liquidity: { good: 1.5, warning: 1.0 },
@@ -3593,7 +4058,7 @@
 
         function updateNetWorthChart() {
             const ctx = document.getElementById('netWorthChart');
-            
+
             const months = [];
             const netWorthData = [];
             
@@ -3698,6 +4163,286 @@
             });
         }
 
+        function updateCashFlowForecastChart() {
+            const canvas = document.getElementById('cashFlowForecastChart');
+            if (!canvas) return;
+
+            const historyMonths = 6;
+            const forecastMonths = 3;
+
+            const labels = [];
+            const incomeHistory = [];
+            const expenseHistory = [];
+
+            for (let i = historyMonths - 1; i >= 0; i--) {
+                const monthKey = getDateMonthsAgo(i);
+                labels.push(formatMonthName(monthKey));
+                const monthTrans = getTransactionsByMonth(monthKey);
+                const monthIncome = monthTrans.filter(t => t.type === 'income').reduce((sum, t) => sum + parseFloat(t.amount), 0);
+                const monthExpense = monthTrans.filter(t => t.type === 'expense').reduce((sum, t) => sum + parseFloat(t.amount), 0);
+                incomeHistory.push(monthIncome);
+                expenseHistory.push(monthExpense);
+            }
+
+            const incomeForecastValues = forecastNextValues(incomeHistory, forecastMonths);
+            const expenseForecastValues = forecastNextValues(expenseHistory, forecastMonths);
+            const netHistory = incomeHistory.map((value, index) => value - expenseHistory[index]);
+            const netForecastValues = incomeForecastValues.map((value, index) => value - expenseForecastValues[index]);
+
+            const futureLabels = [];
+            for (let i = 1; i <= forecastMonths; i++) {
+                futureLabels.push(formatMonthName(getDateMonthsAhead(i)));
+            }
+
+            const allLabels = [...labels, ...futureLabels];
+
+            const incomeActual = [...incomeHistory, ...Array(forecastMonths).fill(null)];
+            const incomeForecast = [...Array(historyMonths).fill(null), ...incomeForecastValues];
+            const expenseActual = [...expenseHistory, ...Array(forecastMonths).fill(null)];
+            const expenseForecast = [...Array(historyMonths).fill(null), ...expenseForecastValues];
+            const netActual = [...netHistory, ...Array(forecastMonths).fill(null)];
+            const netForecast = [...Array(historyMonths).fill(null), ...netForecastValues];
+
+            if (charts.cashFlowForecast) {
+                charts.cashFlowForecast.destroy();
+            }
+
+            charts.cashFlowForecast = new Chart(canvas, {
+                type: 'line',
+                data: {
+                    labels: allLabels,
+                    datasets: [
+                        {
+                            label: 'הכנסות (היסטורי)',
+                            data: incomeActual,
+                            borderColor: 'rgba(34, 197, 94, 1)',
+                            backgroundColor: 'rgba(34, 197, 94, 0.15)',
+                            tension: 0.35,
+                            borderWidth: 3,
+                            fill: true,
+                            pointRadius: 4,
+                            pointBackgroundColor: 'rgba(34, 197, 94, 1)'
+                        },
+                        {
+                            label: 'הכנסות (תחזית)',
+                            data: incomeForecast,
+                            borderColor: 'rgba(34, 197, 94, 0.7)',
+                            borderDash: [6, 6],
+                            tension: 0.35,
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            spanGaps: true
+                        },
+                        {
+                            label: 'הוצאות (היסטורי)',
+                            data: expenseActual,
+                            borderColor: 'rgba(248, 113, 113, 1)',
+                            backgroundColor: 'rgba(248, 113, 113, 0.12)',
+                            tension: 0.35,
+                            borderWidth: 3,
+                            fill: true,
+                            pointRadius: 4,
+                            pointBackgroundColor: 'rgba(248, 113, 113, 1)'
+                        },
+                        {
+                            label: 'הוצאות (תחזית)',
+                            data: expenseForecast,
+                            borderColor: 'rgba(248, 113, 113, 0.7)',
+                            borderDash: [6, 6],
+                            tension: 0.35,
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            spanGaps: true
+                        },
+                        {
+                            label: 'תזרים נקי (היסטורי)',
+                            data: netActual,
+                            borderColor: 'rgba(14, 165, 233, 1)',
+                            tension: 0.35,
+                            borderWidth: 2,
+                            pointRadius: 3,
+                            fill: false
+                        },
+                        {
+                            label: 'תזרים נקי (תחזית)',
+                            data: netForecast,
+                            borderColor: 'rgba(14, 165, 233, 0.7)',
+                            borderDash: [4, 6],
+                            tension: 0.35,
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            spanGaps: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { intersect: false, mode: 'index' },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-primary'),
+                                font: { size: 11, weight: '500' }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.85)',
+                            padding: 12,
+                            cornerRadius: 10,
+                            callbacks: {
+                                label: function(context) {
+                                    const value = context.parsed.y;
+                                    if (value === null || isNaN(value)) return context.dataset.label;
+                                    return `${context.dataset.label}: ${formatCurrency(value)}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary'),
+                                callback: function(value) { return '₪' + value.toLocaleString('he-IL'); }
+                            },
+                            grid: {
+                                color: getComputedStyle(document.documentElement).getPropertyValue('--border-color')
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary'),
+                                maxRotation: 0
+                            },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        /* ==========================================
+           RECURRING TRANSACTIONS INTELLIGENCE
+        ========================================== */
+
+        function detectRecurringTransactions() {
+            const lookbackMonths = 6;
+            const relevantMonths = new Set();
+            for (let i = 0; i < lookbackMonths; i++) {
+                relevantMonths.add(getDateMonthsAgo(i));
+            }
+
+            const groups = new Map();
+
+            transactions.forEach(transaction => {
+                const monthKey = transaction.month || (transaction.date ? transaction.date.slice(0, 7) : null);
+                if (!monthKey || !relevantMonths.has(monthKey)) return;
+
+                const rawDescription = (transaction.description || 'ללא תיאור').trim();
+                const key = `${transaction.type}|${rawDescription.toLowerCase()}`;
+                if (!groups.has(key)) {
+                    groups.set(key, {
+                        description: rawDescription,
+                        type: transaction.type,
+                        months: new Map(),
+                        amounts: [],
+                        lastDate: transaction.date ? new Date(transaction.date) : null
+                    });
+                }
+
+                const group = groups.get(key);
+                group.amounts.push(parseFloat(transaction.amount));
+                group.months.set(monthKey, (group.months.get(monthKey) || 0) + 1);
+
+                if (transaction.date) {
+                    const dateObj = new Date(transaction.date);
+                    if (!group.lastDate || dateObj > group.lastDate) {
+                        group.lastDate = dateObj;
+                    }
+                }
+            });
+
+            const results = [];
+
+            groups.forEach(group => {
+                const occurrences = group.months.size;
+                if (occurrences < 3) return;
+
+                const total = group.amounts.reduce((sum, value) => sum + value, 0);
+                const average = total / group.amounts.length;
+                const variability = calculateStdDev(group.amounts);
+                const variabilityRatio = average !== 0 ? variability / Math.abs(average) : 0;
+                const missedThisMonth = !group.months.has(currentMonth);
+
+                results.push({
+                    description: group.description,
+                    type: group.type,
+                    average,
+                    occurrences,
+                    frequencyText: `${occurrences} מתוך ${lookbackMonths} חודשים`,
+                    variabilityRatio,
+                    missedThisMonth,
+                    lastSeen: group.lastDate
+                });
+            });
+
+            results.sort((a, b) => {
+                if (a.type === b.type) {
+                    return Math.abs(b.average) - Math.abs(a.average);
+                }
+                return a.type === 'income' ? -1 : 1;
+            });
+
+            return results.slice(0, 6);
+        }
+
+        function renderRecurringTransactions() {
+            const container = document.getElementById('recurringTransactionsList');
+            if (!container) return;
+
+            const recurring = detectRecurringTransactions();
+
+            if (recurring.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-10" style="color: var(--text-secondary);">
+                        <div class="text-3xl mb-2">🌱</div>
+                        <p>עדיין אין דפוסים חוזרים ברורים בחצי השנה האחרונה</p>
+                        <p class="text-sm mt-1">ייבוא נתונים היסטוריים ישפר את הזיהוי</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = recurring.map(item => {
+                const directionClass = item.type === 'income' ? 'recurring-direction-income' : 'recurring-direction-expense';
+                const sign = item.type === 'expense' ? '-' : '+';
+                const variabilityBadge = item.variabilityRatio > 0.25
+                    ? `<span class="recurring-badge" style="color: var(--warning-color);">שונות גבוהה</span>`
+                    : `<span class="recurring-badge" style="color: var(--savings-color);">יציב</span>`;
+                const statusBadge = item.missedThisMonth
+                    ? `<span class="recurring-badge recurring-missed">לא הופיע החודש</span>`
+                    : `<span class="recurring-badge" style="color: var(--savings-color);">במסלול</span>`;
+                const lastSeen = item.lastSeen ? item.lastSeen.toLocaleDateString('he-IL', { month: 'short', day: 'numeric' }) : '-';
+
+                return `
+                    <div class="recurring-item">
+                        <div>
+                            <div class="font-semibold text-lg">${item.description}</div>
+                            <div class="recurring-meta">
+                                <span>${item.frequencyText}</span>
+                                <span>נראה לאחרונה: ${lastSeen}</span>
+                                ${variabilityBadge}
+                                ${statusBadge}
+                            </div>
+                        </div>
+                        <div class="recurring-amount ${directionClass}">${sign}${formatCurrency(item.average)}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
         /* ==========================================
            AI INSIGHTS
         ========================================== */
@@ -3706,7 +4451,15 @@
             const container = document.getElementById('insightsContainer');
             const totals = calculateTotals();
             const insights = [];
-            
+
+            const health = evaluateFinancialHealth(totals);
+            const healthColor = health.score >= 85 ? 'text-green-600' : health.score >= 70 ? 'text-emerald-600' : health.score >= 55 ? 'text-orange-600' : 'text-red-600';
+            insights.push({
+                icon: '🧠',
+                text: `מדד הבריאות הפיננסית שלך הוא ${health.score}/100 (${health.grade.label})`,
+                color: healthColor
+            });
+
             if (totals.savingsPercent >= 20) {
                 insights.push({
                     icon: '🎉',
@@ -4378,6 +5131,50 @@
                 pendingImportTransactions = [];
                 skippedDuplicates = 0;
             }, 500);
+        }
+
+        function clamp(value, min, max) {
+            return Math.min(Math.max(value, min), max);
+        }
+
+        function forecastNextValues(series, count) {
+            if (!series.length) return Array(count).fill(0);
+            if (series.length === 1) return Array(count).fill(series[0]);
+
+            const n = series.length;
+            let sumX = 0, sumY = 0, sumXY = 0, sumXX = 0;
+
+            for (let i = 0; i < n; i++) {
+                const x = i;
+                const y = series[i];
+                sumX += x;
+                sumY += y;
+                sumXY += x * y;
+                sumXX += x * x;
+            }
+
+            const denominator = (n * sumXX) - (sumX * sumX);
+            const slope = denominator !== 0 ? ((n * sumXY) - (sumX * sumY)) / denominator : 0;
+            const intercept = (sumY - slope * sumX) / n;
+
+            const forecast = [];
+            for (let i = 0; i < count; i++) {
+                const x = n + i;
+                let value = slope * x + intercept;
+                if (!isFinite(value)) {
+                    value = series[series.length - 1];
+                }
+                forecast.push(Math.max(0, value));
+            }
+
+            return forecast;
+        }
+
+        function calculateStdDev(values) {
+            if (!values.length) return 0;
+            const mean = values.reduce((sum, value) => sum + value, 0) / values.length;
+            const variance = values.reduce((sum, value) => sum + Math.pow(value - mean, 2), 0) / values.length;
+            return Math.sqrt(variance);
         }
 
         function formatCurrency(amount) {
