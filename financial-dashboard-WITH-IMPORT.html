@@ -312,6 +312,34 @@
             transition: width 0.6s ease;
         }
 
+        .health-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .health-breakdown-item {
+            background: var(--bg-tertiary);
+            border-radius: 18px;
+            padding: 0.9rem;
+            box-shadow: var(--shadow-neu-sm);
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .health-breakdown-item strong {
+            font-size: 0.95rem;
+        }
+
+        .health-breakdown-meta {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         /* Recurring transactions list */
         .recurring-item {
             display: flex;
@@ -1009,6 +1037,11 @@
                         </div>
 
                         <div>
+                            <h4 class="text-sm font-semibold mb-2" style="color: var(--text-secondary);">איך מחושב הציון</h4>
+                            <div id="financialHealthBreakdown" class="health-breakdown"></div>
+                        </div>
+
+                        <div>
                             <h4 class="text-sm font-semibold" style="color: var(--text-secondary);">דגשים לפעולה</h4>
                             <div id="financialFocusList" class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2"></div>
                         </div>
@@ -1067,6 +1100,9 @@
                 <div class="rounded-2xl p-6 fade-in" style="background: var(--glass-bg); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: var(--glass-border); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
                     <h3 class="text-xl font-bold mb-6">תחזית תזרים מזומנים</h3>
                     <canvas id="cashFlowForecastChart" style="min-height: 320px;"></canvas>
+                    <div id="cashFlowForecastEmpty" class="text-sm text-center mt-4 hidden" style="color: var(--text-secondary);">
+                        אין מספיק נתונים היסטוריים כדי לחשב תחזית אמינה. הוסף עוד תנועות הכנסה והוצאה כדי לראות את הגרף.
+                    </div>
                 </div>
 
                 <div class="rounded-2xl p-6 fade-in" style="background: var(--glass-bg); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: var(--glass-border); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
@@ -2308,13 +2344,22 @@
                     }
                 }
 
-                const derivedMonth = transaction.date
+                let derivedMonth = transaction.date
                     ? transaction.date.slice(0, 7)
                     : (transaction.month || currentMonth);
+
+                if (!parseMonthKey(derivedMonth)) {
+                    derivedMonth = currentMonth;
+                    needsSave = true;
+                }
 
                 if (transaction.month !== derivedMonth) {
                     transaction.month = derivedMonth;
                     needsSave = true;
+                }
+
+                if (transaction.amount !== undefined) {
+                    transaction.amount = toNumber(transaction.amount);
                 }
 
                 return transaction;
@@ -2333,6 +2378,7 @@
 
         function addTransaction(transaction) {
             transaction.id = Date.now();
+            transaction.amount = toNumber(transaction.amount);
             transaction.month = transaction.month || (transaction.date ? transaction.date.slice(0, 7) : currentMonth);
             transactions.push(transaction);
             saveTransactions();
@@ -2344,7 +2390,11 @@
         function updateTransaction(id, updates) {
             const index = transactions.findIndex(t => t.id === id);
             if (index !== -1) {
-                transactions[index] = { ...transactions[index], ...updates };
+                const sanitized = { ...updates };
+                if (sanitized.amount !== undefined) {
+                    sanitized.amount = toNumber(sanitized.amount);
+                }
+                transactions[index] = { ...transactions[index], ...sanitized };
                 saveTransactions();
                 updateDashboard();
                 closeModal();
@@ -2484,7 +2534,7 @@
             const itemId = document.getElementById('assetItemId').value;
             const item = {
                 description: document.getElementById('assetDescription').value,
-                amount: parseFloat(document.getElementById('assetAmount').value),
+                amount: toNumber(document.getElementById('assetAmount').value),
                 category: document.getElementById('assetCategory').value,
                 dateAdded: new Date().toISOString()
             };
@@ -2559,12 +2609,12 @@
             const transaction = {
                 type: document.getElementById('transactionType').value,
                 description: document.getElementById('description').value,
-                amount: parseFloat(document.getElementById('amount').value),
+                amount: toNumber(document.getElementById('amount').value),
                 category: document.getElementById('category').value,
                 date: dateValue,
                 month: monthValue
             };
-            
+
             if (id) {
                 updateTransaction(parseInt(id), transaction);
             } else {
@@ -2745,11 +2795,11 @@
 
             const income = monthTrans
                 .filter(t => t.type === 'income')
-                .reduce((sum, t) => sum + parseFloat(t.amount), 0);
-            
+                .reduce((sum, t) => sum + toNumber(t.amount), 0);
+
             const expense = monthTrans
                 .filter(t => t.type === 'expense')
-                .reduce((sum, t) => sum + parseFloat(t.amount), 0);
+                .reduce((sum, t) => sum + toNumber(t.amount), 0);
             
             const savings = income - expense;
             const savingsPercent = income > 0 ? (savings / income * 100) : 0;
@@ -2763,18 +2813,33 @@
             return ((current - previous) / Math.abs(previous)) * 100;
         }
 
+        function parseMonthKey(monthKey) {
+            if (!monthKey || typeof monthKey !== 'string') {
+                return null;
+            }
+
+            const [yearStr, monthStr] = monthKey.split('-');
+            const year = Number(yearStr);
+            const month = Number(monthStr);
+
+            if (!Number.isFinite(year) || !Number.isFinite(month)) {
+                return null;
+            }
+
+            const date = new Date(year, month - 1, 1);
+            return Number.isNaN(date.getTime()) ? null : date;
+        }
+
         function getDateMonthsAgo(months) {
-            const [year, month] = currentMonth.split('-').map(Number);
-            const date = new Date(year, month - 1);
-            date.setMonth(date.getMonth() - months);
-            return date.toISOString().slice(0, 7);
+            const baseDate = parseMonthKey(currentMonth) || new Date();
+            baseDate.setMonth(baseDate.getMonth() - months);
+            return baseDate.toISOString().slice(0, 7);
         }
 
         function getDateMonthsAhead(months) {
-            const [year, month] = currentMonth.split('-').map(Number);
-            const date = new Date(year, month - 1);
-            date.setMonth(date.getMonth() + months);
-            return date.toISOString().slice(0, 7);
+            const baseDate = parseMonthKey(currentMonth) || new Date();
+            baseDate.setMonth(baseDate.getMonth() + months);
+            return baseDate.toISOString().slice(0, 7);
         }
 
         /* ==========================================
@@ -2828,7 +2893,7 @@
             
             const totals = calculateTotals();
             const prevMonthTrans = transactions.filter(t => t.month === getDateMonthsAgo(1));
-            const prevIncome = prevMonthTrans.filter(t => t.type === 'income').reduce((sum, t) => sum + parseFloat(t.amount), 0);
+            const prevIncome = prevMonthTrans.filter(t => t.type === 'income').reduce((sum, t) => sum + toNumber(t.amount), 0);
             const incomeGrowth = calculateGrowth(totals.income, prevIncome);
             
             container.innerHTML = `
@@ -3021,7 +3086,7 @@
             const debtCategories = ['משכנתא', 'הלוואת רכב', 'הלוואה אישית', 'כרטיס אשראי', 'מסגרת אשראי'];
             const monthlyDebtPayments = getMonthTransactions()
                 .filter(t => t.type === 'expense' && debtCategories.includes(t.category))
-                .reduce((sum, t) => sum + parseFloat(t.amount), 0);
+                .reduce((sum, t) => sum + toNumber(t.amount), 0);
             
             // Calculate ratios
             const ratios = {
@@ -3070,17 +3135,32 @@
                 : Math.max(Math.abs(netWorth), 1);
             const netWorthTrendScore = clamp(50 + (netWorthChange / baseNetWorth) * 100, 0, 100);
 
+            const latestNetWorth = netWorthHistory.length > 0
+                ? netWorthHistory[netWorthHistory.length - 1]
+                : netWorth;
+            const netWorthDetail = netWorthHistory.length > 1
+                ? `${netWorthChange >= 0 ? 'עלייה' : 'ירידה'} של ${formatCurrency(Math.abs(netWorthChange))} בחצי השנה האחרונה`
+                : `שווי נקי ${latestNetWorth >= 0 ? 'חיובי' : 'שלילי'} ${formatCurrency(Math.abs(latestNetWorth))}`;
+
+            const weights = {
+                savings: 0.25,
+                debt: 0.2,
+                liquidity: 0.2,
+                emergency: 0.15,
+                netWorth: 0.2
+            };
+
             const savingsScore = clamp((totals.savingsPercent / 20) * 100, 0, 100);
             const liquidityScore = clamp((Math.min(ratios.liquidity, 3) / 3) * 100, 0, 100);
             const debtScore = clamp(100 - (ratios.debtToIncome * 100), 0, 100);
             const emergencyScore = clamp((Math.min(emergencyCoverage, 9) / 6) * 100, 0, 100);
 
             const weightedScore =
-                (savingsScore * 0.25) +
-                (debtScore * 0.2) +
-                (liquidityScore * 0.2) +
-                (emergencyScore * 0.15) +
-                (netWorthTrendScore * 0.2);
+                (savingsScore * weights.savings) +
+                (debtScore * weights.debt) +
+                (liquidityScore * weights.liquidity) +
+                (emergencyScore * weights.emergency) +
+                (netWorthTrendScore * weights.netWorth);
 
             const score = Math.round(clamp(weightedScore, 0, 100));
 
@@ -3139,6 +3219,39 @@
                 });
             }
 
+            const breakdown = [
+                {
+                    label: 'חיסכון חודשי',
+                    score: Math.round(savingsScore),
+                    weight: weights.savings,
+                    detail: `${totals.savingsPercent.toFixed(1)}% מההכנסה נטו`
+                },
+                {
+                    label: 'יחס חוב להכנסה',
+                    score: Math.round(debtScore),
+                    weight: weights.debt,
+                    detail: `${(ratios.debtToIncome * 100).toFixed(1)}% מההכנסה החודשית הולכים לחובות`
+                },
+                {
+                    label: 'נזילות',
+                    score: Math.round(liquidityScore),
+                    weight: weights.liquidity,
+                    detail: `יחס נזילות ${ratios.liquidity.toFixed(2)}x`
+                },
+                {
+                    label: 'כרית חירום',
+                    score: Math.round(emergencyScore),
+                    weight: weights.emergency,
+                    detail: `${emergencyCoverage.toFixed(1)} חודשי הוצאות מכוסים`
+                },
+                {
+                    label: 'מגמת שווי נקי',
+                    score: Math.round(netWorthTrendScore),
+                    weight: weights.netWorth,
+                    detail: netWorthDetail
+                }
+            ];
+
             return {
                 score,
                 grade,
@@ -3148,7 +3261,8 @@
                 savingsPercent: totals.savingsPercent,
                 debtToIncome: ratios.debtToIncome,
                 emergencyCoverage,
-                netWorthChange
+                netWorthChange,
+                breakdown
             };
         }
 
@@ -3195,6 +3309,23 @@
             const progressLabel = document.getElementById('financialHealthProgressLabel');
             if (progressLabel) {
                 progressLabel.textContent = `${Math.round(clamp(health.goalProgress, 0, 130))}%`;
+            }
+
+            const breakdownEl = document.getElementById('financialHealthBreakdown');
+            if (breakdownEl) {
+                breakdownEl.innerHTML = health.breakdown.map(item => {
+                    const weightPercent = Math.round(item.weight * 100);
+                    return `
+                        <div class="health-breakdown-item">
+                            <strong>${item.label}</strong>
+                            <div class="text-sm">${item.detail}</div>
+                            <div class="health-breakdown-meta">
+                                <span>משקל ${weightPercent}%</span>
+                                <span>ציון ${item.score}/100</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
             }
         }
 
@@ -3337,8 +3468,8 @@
                 }
                 
                 const monthTrans = transactions.filter(t => t.month === monthKey);
-                const income = monthTrans.filter(t => t.type === 'income').reduce((sum, t) => sum + parseFloat(t.amount), 0);
-                const expense = monthTrans.filter(t => t.type === 'expense').reduce((sum, t) => sum + parseFloat(t.amount), 0);
+                const income = monthTrans.filter(t => t.type === 'income').reduce((sum, t) => sum + toNumber(t.amount), 0);
+                const expense = monthTrans.filter(t => t.type === 'expense').reduce((sum, t) => sum + toNumber(t.amount), 0);
                 const savings = income - expense;
                 
                 const liquidity = liabilities > 0 ? (assets / liabilities) : (assets > 0 ? 10 : 1);
@@ -3538,14 +3669,14 @@
                     key: allKey,
                     label: 'כל התנועות',
                     count: monthTrans.length,
-                    total: monthTrans.reduce((sum, t) => sum + parseFloat(t.amount), 0),
+                    total: monthTrans.reduce((sum, t) => sum + toNumber(t.amount), 0),
                     transactions: [...monthTrans].sort((a, b) => getDateValue(b.date) - getDateValue(a.date))
                 },
                 ...Object.keys(grouped).map(category => ({
                     key: category,
                     label: category,
                     count: grouped[category].length,
-                    total: grouped[category].reduce((sum, t) => sum + parseFloat(t.amount), 0),
+                    total: grouped[category].reduce((sum, t) => sum + toNumber(t.amount), 0),
                     transactions: [...grouped[category]].sort((a, b) => getDateValue(b.date) - getDateValue(a.date))
                 }))
             ];
@@ -3736,7 +3867,7 @@
             
             const categoryTotals = {};
             expenses.forEach(t => {
-                categoryTotals[t.category] = (categoryTotals[t.category] || 0) + parseFloat(t.amount);
+                categoryTotals[t.category] = (categoryTotals[t.category] || 0) + toNumber(t.amount);
             });
             
             if (charts.expense) {
@@ -3817,7 +3948,7 @@
             
             const categoryTotals = {};
             incomes.forEach(t => {
-                categoryTotals[t.category] = (categoryTotals[t.category] || 0) + parseFloat(t.amount);
+                categoryTotals[t.category] = (categoryTotals[t.category] || 0) + toNumber(t.amount);
             });
             
             if (charts.income) {
@@ -3903,8 +4034,8 @@
                 months.push(formatMonthName(monthKey));
                 
                 const monthTrans = transactions.filter(t => t.month === monthKey);
-                const income = monthTrans.filter(t => t.type === 'income').reduce((sum, t) => sum + parseFloat(t.amount), 0);
-                const expense = monthTrans.filter(t => t.type === 'expense').reduce((sum, t) => sum + parseFloat(t.amount), 0);
+                const income = monthTrans.filter(t => t.type === 'income').reduce((sum, t) => sum + toNumber(t.amount), 0);
+                const expense = monthTrans.filter(t => t.type === 'expense').reduce((sum, t) => sum + toNumber(t.amount), 0);
                 
                 incomeData.push(income);
                 expenseData.push(expense);
@@ -4126,6 +4257,7 @@
 
         function updateCashFlowForecastChart() {
             const canvas = document.getElementById('cashFlowForecastChart');
+            const emptyState = document.getElementById('cashFlowForecastEmpty');
             if (!canvas) return;
 
             const historyMonths = 6;
@@ -4139,8 +4271,8 @@
                 const monthKey = getDateMonthsAgo(i);
                 labels.push(formatMonthName(monthKey));
                 const monthTrans = getTransactionsByMonth(monthKey);
-                const monthIncome = monthTrans.filter(t => t.type === 'income').reduce((sum, t) => sum + parseFloat(t.amount), 0);
-                const monthExpense = monthTrans.filter(t => t.type === 'expense').reduce((sum, t) => sum + parseFloat(t.amount), 0);
+                const monthIncome = monthTrans.filter(t => t.type === 'income').reduce((sum, t) => sum + toNumber(t.amount), 0);
+                const monthExpense = monthTrans.filter(t => t.type === 'expense').reduce((sum, t) => sum + toNumber(t.amount), 0);
                 incomeHistory.push(monthIncome);
                 expenseHistory.push(monthExpense);
             }
@@ -4149,6 +4281,24 @@
             const expenseForecastValues = forecastNextValues(expenseHistory, forecastMonths);
             const netHistory = incomeHistory.map((value, index) => value - expenseHistory[index]);
             const netForecastValues = incomeForecastValues.map((value, index) => value - expenseForecastValues[index]);
+
+            const hasData = [...incomeHistory, ...expenseHistory].some(value => Math.abs(value) > 0.01);
+            const hasForecast = [...incomeForecastValues, ...expenseForecastValues].some(value => Math.abs(value) > 0.01);
+
+            if (!hasData && !hasForecast) {
+                if (charts.cashFlowForecast) {
+                    charts.cashFlowForecast.destroy();
+                    charts.cashFlowForecast = null;
+                }
+                if (emptyState) {
+                    emptyState.classList.remove('hidden');
+                }
+                return;
+            }
+
+            if (emptyState) {
+                emptyState.classList.add('hidden');
+            }
 
             const futureLabels = [];
             for (let i = 1; i <= forecastMonths; i++) {
@@ -4314,7 +4464,7 @@
                 }
 
                 const group = groups.get(key);
-                group.amounts.push(parseFloat(transaction.amount));
+                group.amounts.push(toNumber(transaction.amount));
                 group.months.set(monthKey, (group.months.get(monthKey) || 0) + 1);
 
                 if (transaction.date) {
@@ -4457,7 +4607,7 @@
             }
             
             const lastMonthTrans = transactions.filter(t => t.month === getDateMonthsAgo(1));
-            const lastMonthExpense = lastMonthTrans.filter(t => t.type === 'expense').reduce((sum, t) => sum + parseFloat(t.amount), 0);
+            const lastMonthExpense = lastMonthTrans.filter(t => t.type === 'expense').reduce((sum, t) => sum + toNumber(t.amount), 0);
             
             if (lastMonthExpense > 0) {
                 const change = ((totals.expense - lastMonthExpense) / lastMonthExpense * 100);
@@ -4474,7 +4624,7 @@
             if (expenses.length > 0) {
                 const categoryTotals = {};
                 expenses.forEach(t => {
-                    categoryTotals[t.category] = (categoryTotals[t.category] || 0) + parseFloat(t.amount);
+                    categoryTotals[t.category] = (categoryTotals[t.category] || 0) + toNumber(t.amount);
                 });
                 const topCategory = Object.entries(categoryTotals).sort((a, b) => b[1] - a[1])[0];
                 insights.push({
@@ -5065,7 +5215,7 @@
                         id: Date.now() + added + Math.random(), // Ensure unique IDs
                         type: trans.type,
                         description: trans.description,
-                        amount: trans.amount,
+                        amount: toNumber(trans.amount),
                         category: trans.category,
                         date: trans.date,
                         month: trans.month
@@ -5096,6 +5246,21 @@
 
         function clamp(value, min, max) {
             return Math.min(Math.max(value, min), max);
+        }
+
+        function toNumber(value) {
+            if (typeof value === 'number') {
+                return Number.isFinite(value) ? value : 0;
+            }
+
+            if (typeof value === 'string') {
+                const normalized = value.replace(/[^0-9.-]/g, '');
+                const parsed = parseFloat(normalized);
+                return Number.isFinite(parsed) ? parsed : 0;
+            }
+
+            const parsed = Number(value);
+            return Number.isFinite(parsed) ? parsed : 0;
         }
 
         function forecastNextValues(series, count) {
@@ -5162,8 +5327,11 @@
         }
 
         function formatMonthName(monthStr) {
-            const [year, month] = monthStr.split('-');
-            const date = new Date(year, parseInt(month) - 1);
+            const date = parseMonthKey(monthStr);
+            if (!date) {
+                return monthStr || '';
+            }
+
             return date.toLocaleDateString('he-IL', {
                 month: 'long',
                 year: 'numeric'
