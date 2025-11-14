@@ -2293,7 +2293,38 @@
         
         function loadTransactions() {
             const stored = loadUserData('transactions');
-            transactions = stored || [];
+            let needsSave = false;
+
+            const normalized = (stored || []).map(item => {
+                const transaction = { ...item };
+
+                if (!transaction.date && transaction.timestamp) {
+                    try {
+                        const isoDate = new Date(transaction.timestamp).toISOString().slice(0, 10);
+                        transaction.date = isoDate;
+                        needsSave = true;
+                    } catch (error) {
+                        console.warn('Unable to normalize transaction timestamp', error);
+                    }
+                }
+
+                const derivedMonth = transaction.date
+                    ? transaction.date.slice(0, 7)
+                    : (transaction.month || currentMonth);
+
+                if (transaction.month !== derivedMonth) {
+                    transaction.month = derivedMonth;
+                    needsSave = true;
+                }
+
+                return transaction;
+            });
+
+            transactions = normalized;
+
+            if (needsSave) {
+                saveTransactions();
+            }
         }
 
         function saveTransactions() {
@@ -2302,7 +2333,7 @@
 
         function addTransaction(transaction) {
             transaction.id = Date.now();
-            transaction.month = currentMonth;
+            transaction.month = transaction.month || (transaction.date ? transaction.date.slice(0, 7) : currentMonth);
             transactions.push(transaction);
             saveTransactions();
             updateDashboard();
@@ -2521,15 +2552,17 @@
 
         function handleFormSubmit(e) {
             e.preventDefault();
-            
+
             const id = document.getElementById('transactionId').value;
+            const dateValue = document.getElementById('date').value;
+            const monthValue = dateValue ? dateValue.slice(0, 7) : currentMonth;
             const transaction = {
                 type: document.getElementById('transactionType').value,
                 description: document.getElementById('description').value,
                 amount: parseFloat(document.getElementById('amount').value),
                 category: document.getElementById('category').value,
-                date: document.getElementById('date').value,
-                month: currentMonth
+                date: dateValue,
+                month: monthValue
             };
             
             if (id) {
@@ -3464,8 +3497,8 @@
         function renderTransactionList(type) {
             const container = document.getElementById(type + 'List');
             const tabsContainer = document.getElementById(type + 'TabsContainer');
-            let monthTrans = getMonthTransactions().filter(t => t.type === type);
-            
+            const monthTrans = getMonthTransactions().filter(t => t.type === type);
+
             if (monthTrans.length === 0) {
                 container.innerHTML = `
                     <div class="text-center py-8" style="color: var(--text-secondary);">
@@ -3476,44 +3509,68 @@
                 tabsContainer.innerHTML = '';
                 return;
             }
-            
-            // Group transactions by category
-            const categorized = {};
-            monthTrans.forEach(t => {
-                if (!categorized[t.category]) {
-                    categorized[t.category] = [];
+
+            const getDateValue = (value) => {
+                if (!value) return 0;
+                const time = new Date(value).getTime();
+                return Number.isNaN(time) ? 0 : time;
+            };
+
+            const escapeHtml = (value) => String(value)
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+
+            const grouped = monthTrans.reduce((acc, transaction) => {
+                const categoryKey = transaction.category || 'ללא קטגוריה';
+                if (!acc[categoryKey]) {
+                    acc[categoryKey] = [];
                 }
-                categorized[t.category].push(t);
-            });
-            
-            // Create tabs
-            const categories = Object.keys(categorized);
-            let tabsHTML = '<div class="transaction-tabs">';
-            categories.forEach((cat, index) => {
-                const count = categorized[cat].length;
-                const total = categorized[cat].reduce((sum, t) => sum + parseFloat(t.amount), 0);
-                tabsHTML += `
-                    <button class="transaction-tab ${index === 0 ? 'active' : ''}" 
-                            onclick="switchTransactionTab('${type}', '${cat}')"
-                            data-category="${cat}">
-                        ${cat} (${count})
-                        <span style="display: block; font-size: 0.8rem;">₪${formatCurrency(total).replace('₪','')}</span>
-                    </button>
-                `;
-            });
-            tabsHTML += '</div>';
-            tabsContainer.innerHTML = tabsHTML;
-            
-            // Create content for each category
+                acc[categoryKey].push(transaction);
+                return acc;
+            }, {});
+
+            const allKey = '__all__';
+            const tabsConfig = [
+                {
+                    key: allKey,
+                    label: 'כל התנועות',
+                    count: monthTrans.length,
+                    total: monthTrans.reduce((sum, t) => sum + parseFloat(t.amount), 0),
+                    transactions: [...monthTrans].sort((a, b) => getDateValue(b.date) - getDateValue(a.date))
+                },
+                ...Object.keys(grouped).map(category => ({
+                    key: category,
+                    label: category,
+                    count: grouped[category].length,
+                    total: grouped[category].reduce((sum, t) => sum + parseFloat(t.amount), 0),
+                    transactions: [...grouped[category]].sort((a, b) => getDateValue(b.date) - getDateValue(a.date))
+                }))
+            ];
+
+            tabsContainer.innerHTML = `
+                <div class="transaction-tabs">
+                    ${tabsConfig.map((tab, index) => `
+                        <button class="transaction-tab ${index === 0 ? 'active' : ''}"
+                                onclick="switchTransactionTab('${type}', this.dataset.category)"
+                                data-category="${escapeHtml(tab.key)}">
+                            ${escapeHtml(tab.label)} (${tab.count})
+                            <span style="display: block; font-size: 0.8rem;">₪${formatCurrency(tab.total).replace('₪', '')}</span>
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+
             container.innerHTML = '';
-            categories.forEach((cat, index) => {
-                const catTrans = categorized[cat].sort((a, b) => new Date(b.date) - new Date(a.date));
+            tabsConfig.forEach((tab, index) => {
                 const contentDiv = document.createElement('div');
                 contentDiv.className = `transaction-category-content ${index === 0 ? 'active' : ''}`;
-                contentDiv.dataset.category = cat;
-                
-                contentDiv.innerHTML = catTrans.map(t => `
-                    <div class="transaction-card p-4 rounded-lg hover:shadow-md transition cursor-move" 
+                contentDiv.dataset.category = tab.key;
+
+                contentDiv.innerHTML = tab.transactions.map(t => `
+                    <div class="transaction-card p-4 rounded-lg hover:shadow-md transition cursor-move"
                          style="background: var(--bg-tertiary);"
                          data-transaction-id="${t.id}">
                         <div class="flex items-center gap-3">
@@ -3522,7 +3579,7 @@
                             </div>
                             <div class="flex-1">
                                 <div class="flex items-center gap-2 mb-2">
-                                    <span class="font-semibold">${t.description}</span>
+                                    <span class="font-semibold">${escapeHtml(t.description || 'ללא תיאור')}</span>
                                 </div>
                                 <div class="text-sm" style="color: var(--text-secondary);">${formatDate(t.date)}</div>
                             </div>
@@ -3531,16 +3588,16 @@
                                     ${formatCurrency(t.amount)}
                                 </span>
                                 <div class="flex gap-1">
-                                    <button onclick="editTransaction(${t.id})" 
+                                    <button onclick="editTransaction(${t.id})"
                                             class="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition">✏️</button>
-                                    <button onclick="deleteTransaction(${t.id})" 
+                                    <button onclick="deleteTransaction(${t.id})"
                                             class="p-2 rounded hover:bg-red-100 dark:hover:bg-red-900 transition">🗑️</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 `).join('');
-                
+
                 container.appendChild(contentDiv);
             });
         }
@@ -5089,7 +5146,15 @@
         }
 
         function formatDate(dateStr) {
+            if (!dateStr) {
+                return '-';
+            }
+
             const date = new Date(dateStr);
+            if (Number.isNaN(date.getTime())) {
+                return '-';
+            }
+
             return date.toLocaleDateString('he-IL', {
                 day: 'numeric',
                 month: 'short'
