@@ -145,8 +145,12 @@
         }
         
         .item-details { flex: 1; }
-        .item-description { font-weight: 600; margin-bottom: 0.25rem; font-size: 1.1rem; }
-        .item-amount { font-size: 1.25rem; font-weight: 700; }
+        .item-description { font-weight: 600; margin-bottom: 0.25rem; font-size: 1.1rem; color: var(--text-primary); }
+        .item-amount {
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+        }
         .item-category {
             display: inline-block;
             padding: 0.25rem 0.75rem;
@@ -171,6 +175,7 @@
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            color: var(--text-primary);
         }
         .date-nav-btn:hover {
             background: rgba(255, 255, 255, 0.3);
@@ -425,7 +430,7 @@
             cursor: pointer;
             border: none;
             background: transparent;
-            color: #000000;
+            color: var(--text-primary);
             font-weight: 500;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border-bottom: 3px solid transparent;
